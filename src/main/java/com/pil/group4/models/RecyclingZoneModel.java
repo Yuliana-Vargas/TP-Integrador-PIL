@@ -12,14 +12,15 @@ public class RecyclingZoneModel {
 
     @Column
     private String name;
-
+    @Column
+    private boolean needsReclassification;
 
     /*
     localization
     classification
     occupation capacity
     state
-    needs reclassification?
+    complaints
     */
 
     public Long getId() {
@@ -36,5 +37,13 @@ public class RecyclingZoneModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isNeedsReclassification() {
+        return needsReclassification;
+    }
+
+    public void setNeedsReclassification(boolean needsReclassification) {
+        this.needsReclassification = needsReclassification;
     }
 }
