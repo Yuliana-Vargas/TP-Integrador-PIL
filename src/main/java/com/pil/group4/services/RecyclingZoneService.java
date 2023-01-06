@@ -1,4 +1,4 @@
-package com.pil.group4.servicies;
+package com.pil.group4.services;
 
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.repositories.RecyclingZoneRepository;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class RecyclingZoneService {
@@ -15,6 +16,10 @@ public class RecyclingZoneService {
 
     public ArrayList<RecyclingZoneModel> getRecyclingZones(){
         return (ArrayList<RecyclingZoneModel>) recyclingZoneRepository.findAll();
+    }
+
+    public Optional<RecyclingZoneModel> getRecyclingZoneById(Long idRecyclingZone){
+        return recyclingZoneRepository.findById(idRecyclingZone);
     }
 
     public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel){
