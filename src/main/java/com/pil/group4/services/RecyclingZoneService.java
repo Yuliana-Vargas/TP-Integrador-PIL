@@ -1,4 +1,4 @@
-package com.pil.group4.servicies;
+package com.pil.group4.services;
 
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.repositories.RecyclingZoneRepository;
