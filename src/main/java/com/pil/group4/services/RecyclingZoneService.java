@@ -25,13 +25,5 @@ public class RecyclingZoneService {
     public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel){
         return  recyclingZoneRepository.save(recyclingZoneModel);
     }
-    public boolean deleteOfRecyclingZone(Long id){
-        try{
-            recyclingZoneRepository.deleteById(id);
-            return true;
-        } catch(Exception e){
-            return false;
-        }
-    }
   
 }
