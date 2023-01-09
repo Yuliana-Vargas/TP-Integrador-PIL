@@ -1,7 +1,7 @@
 package com.pil.group4.controllers;
 
 import com.pil.group4.models.RecyclingZoneModel;
-import com.pil.group4.servicies.RecyclingZoneService;
+import com.pil.group4.services.RecyclingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
