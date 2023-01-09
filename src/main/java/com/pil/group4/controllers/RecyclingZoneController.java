@@ -20,17 +20,17 @@ public class RecyclingZoneController {
     private RecyclingZoneRepository recyclingZoneRepository;
 
     @GetMapping
-    public ArrayList<RecyclingZoneModel> getRecyclingZones(){
+    public ArrayList<RecyclingZoneModel> getRecyclingZones() {
         return this.recyclingZoneService.getRecyclingZones();
     }
 
     @GetMapping("/{id}")
-    public Optional<RecyclingZoneModel> getRecyclingZoneById(@PathVariable("id") Long idRecyclingZone){
+    public Optional<RecyclingZoneModel> getRecyclingZoneById(@PathVariable("id") Long idRecyclingZone) {
         return recyclingZoneService.getRecyclingZoneById(idRecyclingZone);
     }
 
     @PostMapping
-    public RecyclingZoneModel saveRecyclingZone(@RequestBody RecyclingZoneModel recyclingZone){
+    public RecyclingZoneModel saveRecyclingZone(@RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.saveRecyclingZone(recyclingZone);
     }
 
@@ -41,5 +41,15 @@ public class RecyclingZoneController {
         update.setName(recyclingZoneDetails.getName());
         recyclingZoneRepository.save(update);
         return ResponseEntity.ok(update);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String deleteOfRecyclingZoneById(@PathVariable("id") Long id) {
+        boolean answer = this.recyclingZoneService.deleteOfRecyclingZone(id);
+        if (answer == true) {
+            return "The Recycling Zone with id: " + id + ", was removed";
+        } else {
+            return "The Recycling Zone with id: " + id + ", wasn't removed";
+        }
     }
 }
