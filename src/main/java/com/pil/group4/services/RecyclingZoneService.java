@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class RecyclingZoneService {
@@ -17,7 +18,12 @@ public class RecyclingZoneService {
         return (ArrayList<RecyclingZoneModel>) recyclingZoneRepository.findAll();
     }
 
+    public Optional<RecyclingZoneModel> getRecyclingZoneById(Long idRecyclingZone){
+        return recyclingZoneRepository.findById(idRecyclingZone);
+    }
+
     public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel){
         return  recyclingZoneRepository.save(recyclingZoneModel);
     }
+  
 }
