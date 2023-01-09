@@ -12,13 +12,16 @@ public class RecyclingZoneModel {
 
     @Column
     private String name;
+
+    @Column
+    private OccupationCapacity.Level occupationCapacity;
+
     @Column
     private boolean needsReclassification;
 
     /*
     localization
     classification
-    occupation capacity
     state
     complaints
     */
@@ -37,6 +40,14 @@ public class RecyclingZoneModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public OccupationCapacity.Level getOccupationCapacity() {
+        return occupationCapacity;
+    }
+
+    public void setOccupationCapacity(OccupationCapacity.Level occupationCapacity) {
+        this.occupationCapacity = occupationCapacity;
     }
 
     public boolean isNeedsReclassification() {
