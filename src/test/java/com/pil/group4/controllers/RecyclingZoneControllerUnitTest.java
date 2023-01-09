@@ -9,12 +9,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RecyclingZoneControllerUnitTest {
+
 
     @Mock
     private RecyclingZoneService recyclingZoneService;
@@ -23,7 +25,7 @@ public class RecyclingZoneControllerUnitTest {
     private RecyclingZoneController recyclingZoneController;
 
     @Test
-    public void getRecyclingZones(){
+    public void getRecyclingZonesTest() {
         ArrayList<RecyclingZoneModel> recyclingZones = new ArrayList<>();
 
         RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
@@ -47,7 +49,21 @@ public class RecyclingZoneControllerUnitTest {
     }
 
     @Test
-    public void saveRecyclingZone(){
+    public void getRecyclingZoneByIdTest() {
+        RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
+        recyclingZone.setId(1L);
+        recyclingZone.setName("Recycling Zone 1");
+        recyclingZone.setNeedsReclassification(false);
+
+        when(recyclingZoneService.getRecyclingZoneById(recyclingZone.getId())).thenReturn(Optional.of(recyclingZone));
+        Optional<RecyclingZoneModel> recyclingZoneById = recyclingZoneService.getRecyclingZoneById(1L);
+
+        assertNotNull(recyclingZoneById);
+        assertEquals(recyclingZone.getId(), recyclingZoneById.orElseThrow().getId());
+    }
+
+    @Test
+    public void saveRecyclingZoneTest() {
         RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
         recyclingZone.setName("Recycling Zone 1");
         recyclingZone.setNeedsReclassification(false);
