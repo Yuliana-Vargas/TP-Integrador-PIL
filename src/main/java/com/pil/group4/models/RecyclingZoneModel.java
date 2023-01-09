@@ -14,7 +14,7 @@ public class RecyclingZoneModel {
     private String name;
 
     @Column
-    private OccupationCapacity.Level occupationCapacity;
+    private OccupationCapacity occupationCapacity;
 
     @Column
     private StateOfTheZone stateOfTheZone;
@@ -44,11 +44,11 @@ public class RecyclingZoneModel {
         this.name = name;
     }
 
-    public OccupationCapacity.Level getOccupationCapacity() {
+    public OccupationCapacity getOccupationCapacity() {
         return occupationCapacity;
     }
 
-    public void setOccupationCapacity(OccupationCapacity.Level occupationCapacity) {
+    public void setOccupationCapacity(OccupationCapacity occupationCapacity) {
         this.occupationCapacity = occupationCapacity;
     }
 
