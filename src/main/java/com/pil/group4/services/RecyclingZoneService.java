@@ -25,4 +25,5 @@ public class RecyclingZoneService {
     public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel){
         return  recyclingZoneRepository.save(recyclingZoneModel);
     }
+  
 }
