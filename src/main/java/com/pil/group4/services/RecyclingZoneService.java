@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+import java.util.Optional;
+
+
 @Service
 public class RecyclingZoneService {
 
@@ -21,3 +24,14 @@ public class RecyclingZoneService {
         return  recyclingZoneRepository.save(recyclingZoneModel);
     }
 }
+
+    public Optional<RecyclingZoneModel> getRecyclingZoneById(Long idRecyclingZone){
+        return recyclingZoneRepository.findById(idRecyclingZone);
+    }
+
+    public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel){
+        return  recyclingZoneRepository.save(recyclingZoneModel);
+    }
+  
+}
+
