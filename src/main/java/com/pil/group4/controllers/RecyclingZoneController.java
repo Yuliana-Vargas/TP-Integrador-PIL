@@ -39,4 +39,13 @@ public class RecyclingZoneController {
     public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.updateRecyclingZoneById(id,recyclingZone);
     }
+    @DeleteMapping(path ="/{id}")
+    public String deleteOfRecyclingZoneById(@PathVariable("id") Long id) {
+        boolean answer = this.recyclingZoneService.deleteOfRecyclingZone(id);
+        if (answer == true) {
+            return "The Recycling Zone with id: " + id + ", was removed";
+        } else {
+            return "The Recycling Zone with id: " + id + ", wasn't removed";
+        }
+    }
 }
