@@ -11,39 +11,44 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class RecyclingZoneService {
+public class RecyclingZoneService implements IRecyclingZoneService {
+    private final RecyclingZoneRepository recyclingZoneRepository;
 
     @Autowired
-    RecyclingZoneRepository recyclingZoneRepository;
+    public RecyclingZoneService(RecyclingZoneRepository recyclingZoneRepository) {
+        this.recyclingZoneRepository = recyclingZoneRepository;
+    }
 
-    public ArrayList<RecyclingZoneModel> getRecyclingZones(){
+    @Override
+    public ArrayList<RecyclingZoneModel> getRecyclingZones() {
         return (ArrayList<RecyclingZoneModel>) recyclingZoneRepository.findAll();
     }
 
-    public Optional<RecyclingZoneModel> getRecyclingZoneById(Long idRecyclingZone){
+    @Override
+    public Optional<RecyclingZoneModel> getRecyclingZoneById(Long idRecyclingZone) {
         return recyclingZoneRepository.findById(idRecyclingZone);
     }
 
-    public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel){
-        return  recyclingZoneRepository.save(recyclingZoneModel);
+    @Override
+    public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel) {
+        return recyclingZoneRepository.save(recyclingZoneModel);
     }
 
-    public boolean deleteOfRecyclingZone(Long id){
-        try{
+    @Override
+    public boolean deleteOfRecyclingZone(Long id) {
+        try {
             recyclingZoneRepository.deleteById(id);
             return true;
-        } catch(Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-
-    public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") long id, @RequestBody RecyclingZoneModel recyclingZoneDetails) {
+    @Override
+    public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZoneDetails) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
         RecyclingZoneModel update = optionalUpdate.get();
         update.setName(recyclingZoneDetails.getName());
         return recyclingZoneRepository.save(update);
     }
-
-  
 }

@@ -2,9 +2,8 @@ package com.pil.group4.controllers;
 
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.repositories.RecyclingZoneRepository;
-import com.pil.group4.services.RecyclingZoneService;
+import com.pil.group4.services.IRecyclingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,10 +13,12 @@ import java.util.Optional;
 @RequestMapping("/recycling-zone")
 public class RecyclingZoneController {
 
+    private final IRecyclingZoneService recyclingZoneService;
+
     @Autowired
-    private RecyclingZoneService recyclingZoneService;
-    @Autowired
-    private RecyclingZoneRepository recyclingZoneRepository;
+    public RecyclingZoneController(IRecyclingZoneService recyclingZoneService) {
+        this.recyclingZoneService = recyclingZoneService;
+    }
 
     @GetMapping
     public ArrayList<RecyclingZoneModel> getRecyclingZones() {
