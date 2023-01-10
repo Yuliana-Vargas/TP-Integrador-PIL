@@ -72,5 +72,19 @@ public class RecyclingZoneControllerUnitTest {
         assertEquals(recyclingZone, recyclingZoneController.saveRecyclingZone(recyclingZone));
     }
 
+    @Test
+    public void updateRecyclingZoneByIdTest() {
+        RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
+        recyclingZone.setId(1L);
+        recyclingZone.setName("Recycling Zone 1");
+        recyclingZone.setNeedsReclassification(false);
 
+        RecyclingZoneModel recyclingZone2 = new RecyclingZoneModel();
+        recyclingZone2.setId(1L);
+        recyclingZone2.setName("Recycling Zone 2");
+        recyclingZone2.setNeedsReclassification(false);
+
+        when(recyclingZoneService.updateRecyclingZoneById(recyclingZone.getId(), recyclingZone2)).thenReturn(recyclingZone2);
+        assertEquals(recyclingZone2, recyclingZoneController.updateRecyclingZoneById(recyclingZone.getId(), recyclingZone2));
+    }
 }
