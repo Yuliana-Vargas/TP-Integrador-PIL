@@ -34,12 +34,9 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.saveRecyclingZone(recyclingZone);
     }
 
+
     @PutMapping("/{id}")
-    public ResponseEntity<RecyclingZoneModel> updateRecyclingZoneById(@PathVariable("id") long id, @RequestBody RecyclingZoneModel recyclingZoneDetails) {
-        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
-        RecyclingZoneModel update = optionalUpdate.get();
-        update.setName(recyclingZoneDetails.getName());
-        recyclingZoneRepository.save(update);
-        return ResponseEntity.ok(update);
+    public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZone) {
+        return this.recyclingZoneService.updateRecyclingZoneById(id,recyclingZone);
     }
 }
