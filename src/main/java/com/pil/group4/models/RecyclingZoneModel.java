@@ -20,6 +20,9 @@ public class RecyclingZoneModel {
     private StateOfTheZone stateOfTheZone;
 
     @Column
+    private ClassificationType classificationType;
+
+    @Column
     private boolean needsReclassification;
 
     /*
@@ -63,6 +66,10 @@ public class RecyclingZoneModel {
     public void setStateOfTheZone(StateOfTheZone stateOfTheZone) {
         this.stateOfTheZone = stateOfTheZone;
     }
+
+    public ClassificationType getClassificationType(){ return classificationType; }
+
+    public void setClassificationType(ClassificationType classificationType){ this.classificationType = classificationType; }
 
     public void setNeedsReclassification(boolean needsReclassification) {
         this.needsReclassification = needsReclassification;
