@@ -27,7 +27,6 @@ public class RecyclingZoneModel {
 
     /*
     localization
-    classification
     complaints
     */
 
