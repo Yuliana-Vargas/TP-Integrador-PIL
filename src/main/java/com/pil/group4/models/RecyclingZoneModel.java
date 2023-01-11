@@ -25,6 +25,9 @@ public class RecyclingZoneModel {
     @Column
     private boolean needsReclassification;
 
+    @Column
+    private TypeOfComplaint typeOfComplaint;
+
     /*
     localization
     complaints
@@ -73,4 +76,7 @@ public class RecyclingZoneModel {
     public void setNeedsReclassification(boolean needsReclassification) {
         this.needsReclassification = needsReclassification;
     }
+    public TypeOfComplaint getTypeOfComplaint() { return typeOfComplaint; }
+
+    public void setTypeOfComplaint(TypeOfComplaint typeOfComplaint) {this.typeOfComplaint = typeOfComplaint; }
 }
