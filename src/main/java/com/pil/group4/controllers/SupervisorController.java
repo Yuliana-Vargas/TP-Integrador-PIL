@@ -1,9 +1,11 @@
 package com.pil.group4.controllers;
 
+import com.pil.group4.models.SupervisorModel;
 import com.pil.group4.services.ISupervisorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/supervisor")
@@ -14,4 +16,6 @@ public class SupervisorController {
     public SupervisorController(ISupervisorService supervisorService) {
         this.supervisorService = supervisorService;
     }
+
+
 }

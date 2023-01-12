@@ -7,14 +7,11 @@ import jakarta.persistence.*;
 public class SupervisorModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column
     private String supervisorName;
-
-    @Column
-    private RecyclingZoneModel recyclingZoneModel;
 
     public Long getId() {
         return id;
@@ -32,11 +29,4 @@ public class SupervisorModel {
         this.supervisorName = supervisorName;
     }
 
-    public RecyclingZoneModel getRecyclingZoneModel() {
-        return recyclingZoneModel;
-    }
-
-    public void setRecyclingZoneModel(RecyclingZoneModel recyclingZoneModel) {
-        this.recyclingZoneModel = recyclingZoneModel;
-    }
 }
