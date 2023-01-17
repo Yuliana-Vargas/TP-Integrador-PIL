@@ -28,6 +28,17 @@ public class RecyclingZoneModel {
     @Column
     private TypeOfComplaint typeOfComplaint;
 
+    @OneToOne(mappedBy = "recyclingZoneModel", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private SupervisorModel supervisorModel;
+
+    public RecyclingZoneModel() {
+    }
+
+    public RecyclingZoneModel(String name) {
+        this.name = name;
+    }
+
     /*
     localization
     complaints
