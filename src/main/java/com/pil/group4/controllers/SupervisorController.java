@@ -17,5 +17,13 @@ public class SupervisorController {
         this.supervisorService = supervisorService;
     }
 
+    @GetMapping
+    public ArrayList<SupervisorModel> getSupervisors() {
+        return supervisorService.getSupervisor();
+    }
+    @PostMapping
+    public SupervisorModel saveSupervisor(@RequestBody SupervisorModel supervisorModel) {
+        return supervisorService.saveSupervisor(supervisorModel);
+    }
 
 }
