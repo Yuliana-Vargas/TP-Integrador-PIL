@@ -13,9 +13,7 @@ public class SupervisorModel {
     @Column
     private String supervisorName;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id_recyclingZone")
+    @OneToOne(mappedBy = "supervisorModel")
     private RecyclingZoneModel recyclingZoneModel;
 
     public SupervisorModel() {
