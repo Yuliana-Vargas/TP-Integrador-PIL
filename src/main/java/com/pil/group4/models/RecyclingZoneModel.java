@@ -1,6 +1,7 @@
 package com.pil.group4.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "recycling_zone")
@@ -28,9 +29,27 @@ public class RecyclingZoneModel {
     @Column
     private TypeOfComplaint typeOfComplaint;
 
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "supervisor_id", referencedColumnName = "id")
+    private SupervisorModel supervisorModel;
+
+    public RecyclingZoneModel() {
+    }
+
+    public RecyclingZoneModel(String name, OccupationCapacity occupationCapacity, StateOfTheZone stateOfTheZone,
+                              ClassificationType classificationType, boolean needsReclassification,
+                              TypeOfComplaint typeOfComplaint, SupervisorModel supervisorModel) {
+        this.name = name;
+        this.occupationCapacity = occupationCapacity;
+        this.stateOfTheZone = stateOfTheZone;
+        this.classificationType = classificationType;
+        this.needsReclassification = needsReclassification;
+        this.typeOfComplaint = typeOfComplaint;
+        this.supervisorModel = supervisorModel;
+    }
+
     /*
     localization
-    complaints
     */
 
     public Long getId() {
@@ -79,4 +98,11 @@ public class RecyclingZoneModel {
     public TypeOfComplaint getTypeOfComplaint() { return typeOfComplaint; }
 
     public void setTypeOfComplaint(TypeOfComplaint typeOfComplaint) {this.typeOfComplaint = typeOfComplaint; }
+
+    public SupervisorModel getSupervisorModel() {
+        return supervisorModel;
+    }
+    public void setSupervisorModel(SupervisorModel supervisorModel) {
+        this.supervisorModel = supervisorModel;
+    }
 }
