@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class SupervisorService implements ISupervisorService{
@@ -24,5 +25,9 @@ public class SupervisorService implements ISupervisorService{
     @Override
     public SupervisorModel saveSupervisor(SupervisorModel supervisorModel) {
         return supervisorRepository.save(supervisorModel);
+    }
+    @Override
+    public Optional<SupervisorModel> getSupervisorById(Long idSupervisor) {
+        return supervisorRepository.findById(idSupervisor);
     }
 }

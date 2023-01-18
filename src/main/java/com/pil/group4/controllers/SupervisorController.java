@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/supervisor")
@@ -21,9 +22,14 @@ public class SupervisorController {
     public ArrayList<SupervisorModel> getSupervisors() {
         return supervisorService.getSupervisor();
     }
+
     @PostMapping
     public SupervisorModel saveSupervisor(@RequestBody SupervisorModel supervisorModel) {
         return supervisorService.saveSupervisor(supervisorModel);
+    }
+    @GetMapping("/{id}")
+    public Optional<SupervisorModel> getSupervisorById(@PathVariable("id") Long idSupervisor) {
+        return supervisorService.getSupervisorById(idSupervisor);
     }
 
 }
