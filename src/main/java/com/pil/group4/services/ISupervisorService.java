@@ -7,7 +7,10 @@ import java.util.Optional;
 
 public interface ISupervisorService {
     ArrayList<SupervisorModel> getSupervisor();
+
     SupervisorModel saveSupervisor(SupervisorModel supervisorModel);
+
     Optional<SupervisorModel> getSupervisorById(Long idSupervisor);
 
+    SupervisorModel updateSupervisorById(SupervisorModel newSupervisorModel, Long id);
 }

@@ -27,9 +27,15 @@ public class SupervisorController {
     public SupervisorModel saveSupervisor(@RequestBody SupervisorModel supervisorModel) {
         return supervisorService.saveSupervisor(supervisorModel);
     }
+
     @GetMapping("/{id}")
     public Optional<SupervisorModel> getSupervisorById(@PathVariable("id") Long idSupervisor) {
         return supervisorService.getSupervisorById(idSupervisor);
+    }
+
+    @PutMapping("/{id}")
+    public SupervisorModel updateSupervisorById(@RequestBody SupervisorModel newSupervisorModel, @PathVariable Long id) {
+        return supervisorService.updateSupervisorById(newSupervisorModel, id);
     }
 
 }
