@@ -18,7 +18,7 @@ public class SupervisorService implements ISupervisorService{
     }
 
     @Override
-    public ArrayList<SupervisorModel> getSupervisor() {
+    public ArrayList<SupervisorModel> getSupervisors() {
         return (ArrayList<SupervisorModel>) supervisorRepository.findAll();
     }
 

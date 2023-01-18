@@ -20,7 +20,7 @@ public class SupervisorController {
 
     @GetMapping
     public ArrayList<SupervisorModel> getSupervisors() {
-        return supervisorService.getSupervisor();
+        return supervisorService.getSupervisors();
     }
 
     @PostMapping
