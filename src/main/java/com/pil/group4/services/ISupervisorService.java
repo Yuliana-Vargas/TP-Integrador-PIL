@@ -9,5 +9,6 @@ public interface ISupervisorService {
     ArrayList<SupervisorModel> getSupervisor();
     SupervisorModel saveSupervisor(SupervisorModel supervisorModel);
     Optional<SupervisorModel> getSupervisorById(Long idSupervisor);
+    boolean deleteSupervisor(Long id);
 
 }

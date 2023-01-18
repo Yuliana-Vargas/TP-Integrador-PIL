@@ -31,5 +31,14 @@ public class SupervisorController {
     public Optional<SupervisorModel> getSupervisorById(@PathVariable("id") Long idSupervisor) {
         return supervisorService.getSupervisorById(idSupervisor);
     }
+    @DeleteMapping(path = "/{id}")
+    public String deleteSupervisorById(@PathVariable("id") Long id) {
+        boolean answer = this.supervisorService.deleteSupervisor(id);
+        if (answer) {
+            return "The Supervisor with the id: " + id + ", was removed";
+        } else {
+            return "The Supervisor with the id: " + id + ", wasn't removed";
+        }
+    }
 
 }

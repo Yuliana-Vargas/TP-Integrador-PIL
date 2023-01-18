@@ -30,4 +30,13 @@ public class SupervisorService implements ISupervisorService{
     public Optional<SupervisorModel> getSupervisorById(Long idSupervisor) {
         return supervisorRepository.findById(idSupervisor);
     }
+    @Override
+    public boolean deleteSupervisor(Long id){
+        try{
+            supervisorRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
