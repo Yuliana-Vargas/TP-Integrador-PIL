@@ -7,9 +7,14 @@ import java.util.Optional;
 
 public interface IRecyclingZoneService {
     ArrayList<RecyclingZoneModel> getRecyclingZones();
+
     Optional<RecyclingZoneModel> getRecyclingZoneById(Long idRecyclingZone);
+
     RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel);
+
     boolean deleteOfRecyclingZone(Long idRecyclingZone);
+
     RecyclingZoneModel updateRecyclingZoneById(Long idRecyclingZone, RecyclingZoneModel recyclingZoneModel);
 
+    boolean addSupervisor(Long id, Long idSupervisor);
 }
