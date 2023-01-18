@@ -1,14 +1,13 @@
 package com.pil.group4.models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "recycling_zone")
 public class RecyclingZoneModel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @Column(name = "rec-zone_id", nullable = false)
     private Long id;
 
     @Column
@@ -26,27 +25,9 @@ public class RecyclingZoneModel {
     @Column
     private boolean needsReclassification;
 
-    @Column
-    private TypeOfComplaint typeOfComplaint;
-
     @OneToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "supervisor_id", referencedColumnName = "id")
-    private SupervisorModel supervisorModel;
-
-    public RecyclingZoneModel() {
-    }
-
-    public RecyclingZoneModel(String name, OccupationCapacity occupationCapacity, StateOfTheZone stateOfTheZone,
-                              ClassificationType classificationType, boolean needsReclassification,
-                              TypeOfComplaint typeOfComplaint, SupervisorModel supervisorModel) {
-        this.name = name;
-        this.occupationCapacity = occupationCapacity;
-        this.stateOfTheZone = stateOfTheZone;
-        this.classificationType = classificationType;
-        this.needsReclassification = needsReclassification;
-        this.typeOfComplaint = typeOfComplaint;
-        this.supervisorModel = supervisorModel;
-    }
+    @JoinColumn(name = "fk_sup_id", referencedColumnName = "sup_id")
+    private SupervisorModel supervisor;
 
     /*
     localization
@@ -95,14 +76,12 @@ public class RecyclingZoneModel {
     public void setNeedsReclassification(boolean needsReclassification) {
         this.needsReclassification = needsReclassification;
     }
-    public TypeOfComplaint getTypeOfComplaint() { return typeOfComplaint; }
 
-    public void setTypeOfComplaint(TypeOfComplaint typeOfComplaint) {this.typeOfComplaint = typeOfComplaint; }
-
-    public SupervisorModel getSupervisorModel() {
-        return supervisorModel;
+    public SupervisorModel getSupervisor() {
+        return supervisor;
     }
-    public void setSupervisorModel(SupervisorModel supervisorModel) {
-        this.supervisorModel = supervisorModel;
+
+    public void setSupervisor(SupervisorModel supervisor) {
+        this.supervisor = supervisor;
     }
 }

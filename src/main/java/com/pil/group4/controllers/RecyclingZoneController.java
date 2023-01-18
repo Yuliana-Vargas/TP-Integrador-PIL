@@ -1,7 +1,6 @@
 package com.pil.group4.controllers;
 
 import com.pil.group4.models.RecyclingZoneModel;
-import com.pil.group4.repositories.RecyclingZoneRepository;
 import com.pil.group4.services.IRecyclingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,5 +47,12 @@ public class RecyclingZoneController {
         } else {
             return "The Recycling Zone with id: " + id + ", wasn't removed";
         }
+    }
+
+    @PutMapping("/{id}/supervisor/{idSupervisor}")
+    public String addSupervisor(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor) {
+        return this.recyclingZoneService.addSupervisor(id, idSupervisor) ? "The Supervisor with id: " + idSupervisor +
+                ", was added to the Recycling Zone with id: " + id : "The Supervisor with id: " + idSupervisor +
+                ", wasn't added to the Recycling Zone with id: " + id;
     }
 }
