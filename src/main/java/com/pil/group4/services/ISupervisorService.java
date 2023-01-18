@@ -13,4 +13,6 @@ public interface ISupervisorService {
     Optional<SupervisorModel> getSupervisorById(Long idSupervisor);
 
     SupervisorModel updateSupervisorById(SupervisorModel newSupervisorModel, Long id);
+
+    boolean deleteSupervisor(Long id);
 }

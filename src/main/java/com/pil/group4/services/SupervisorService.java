@@ -42,4 +42,14 @@ public class SupervisorService implements ISupervisorService{
                     return supervisorRepository.save(newSupervisorModel);
                 });
     }
+
+    @Override
+    public boolean deleteSupervisor(Long id){
+        try{
+            supervisorRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
