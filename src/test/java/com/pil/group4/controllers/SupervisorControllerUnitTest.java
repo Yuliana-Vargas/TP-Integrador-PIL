@@ -24,7 +24,7 @@ public class SupervisorControllerUnitTest {
     private SupervisorController supervisorController;
 
     @Test
-    public void updateRecyclingZoneByIdTest() {
+    public void updateSupervisorIdTest() {
         SupervisorModel supervisorModel = new SupervisorModel();
         supervisorModel.setId(1L);
         supervisorModel.setSupervisorName("Supervisor 1");
