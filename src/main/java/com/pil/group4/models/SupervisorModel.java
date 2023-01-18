@@ -18,10 +18,12 @@ public class SupervisorModel {
 
     public SupervisorModel() {
     }
+
     public SupervisorModel(String supervisorName, RecyclingZoneModel recyclingZoneModel) {
         this.supervisorName = supervisorName;
         this.recyclingZoneModel = recyclingZoneModel;
     }
+
     public Long getId() {
         return id;
     }

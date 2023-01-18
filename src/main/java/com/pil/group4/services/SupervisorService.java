@@ -26,8 +26,20 @@ public class SupervisorService implements ISupervisorService{
     public SupervisorModel saveSupervisor(SupervisorModel supervisorModel) {
         return supervisorRepository.save(supervisorModel);
     }
+
     @Override
     public Optional<SupervisorModel> getSupervisorById(Long idSupervisor) {
         return supervisorRepository.findById(idSupervisor);
+    }
+
+    public SupervisorModel updateSupervisorById(SupervisorModel newSupervisorModel, Long id) {
+        return supervisorRepository.findById(id)
+                .map(supervisor -> {
+                    supervisor.setSupervisorName(newSupervisorModel.getSupervisorName());
+                    return supervisorRepository.save(supervisor);
+                })
+                .orElseGet(() -> {
+                    return supervisorRepository.save(newSupervisorModel);
+                });
     }
 }
