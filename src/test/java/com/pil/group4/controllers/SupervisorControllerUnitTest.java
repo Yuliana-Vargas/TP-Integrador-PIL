@@ -37,4 +37,15 @@ public class SupervisorControllerUnitTest {
         assertEquals(supervisorModel2, supervisorController.updateSupervisorById(supervisorModel2, supervisorModel.getId()));
     }
 
+    @Test
+    public void deleteSupervisorTest() {
+        SupervisorModel supervisorModel = new SupervisorModel();
+        supervisorModel.setId(1L);
+
+        supervisorService.deleteSupervisor(supervisorModel.getId());
+
+        assertFalse(supervisorService.getSupervisorById(1L).isPresent());
+
+    }
+
 }
