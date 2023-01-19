@@ -25,12 +25,12 @@ public class RecyclingZoneModel {
     @Column
     private boolean needsReclassification;
 
-    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_sup_id", referencedColumnName = "sup_id")
+    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private SupervisorModel supervisor;
 
-    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_loc_id", referencedColumnName = "loc_id")
+    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LocationModel location;
 
     public Long getId() {
