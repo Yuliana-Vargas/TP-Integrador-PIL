@@ -46,6 +46,19 @@ public class SupervisorControllerUnitTest {
         when(supervisorService.getSupervisors()).thenReturn(supervisors);
         assertEquals(supervisors, supervisorController.getSupervisors());
     }
+    @Test
+    public void getSupervisorByIdTest() {
+        SupervisorModel supervisorModel = new SupervisorModel();
+        supervisorModel.setId(1L);
+        supervisorModel.setSupervisorName("Juan");
+
+
+        when(supervisorService.getSupervisorById(supervisorModel.getId())).thenReturn(Optional.of(supervisorModel));
+        Optional<SupervisorModel> supervisorById = supervisorService.getSupervisorById(1L);
+
+        assertNotNull(supervisorById);
+        assertEquals(supervisorModel.getId(), supervisorById.orElseThrow().getId());
+    }
 
     @Test
     public void saveSupervisorTest() {
