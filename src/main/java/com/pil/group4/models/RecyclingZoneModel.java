@@ -1,6 +1,6 @@
 package com.pil.group4.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "recycling_zone")
