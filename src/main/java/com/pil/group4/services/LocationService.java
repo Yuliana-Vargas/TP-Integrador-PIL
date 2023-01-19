@@ -33,4 +33,13 @@ public class LocationService implements ILocationService {
         return this.locationRepository.save(locationModel);
     }
 
+    @Override
+    public boolean deleteLocation(Long id) {
+        try {
+            locationRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
