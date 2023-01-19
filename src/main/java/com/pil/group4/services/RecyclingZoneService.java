@@ -39,17 +39,16 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel) {
         return recyclingZoneRepository.save(recyclingZoneModel);
     }
-
+    
     @Override
-    public boolean deleteOfRecyclingZone(Long id) {
-        try {
+    public boolean deleteOfRecyclingZone(Long id){
+        try{
             recyclingZoneRepository.deleteById(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             return false;
         }
     }
-
     @Override
     public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZoneDetails) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
