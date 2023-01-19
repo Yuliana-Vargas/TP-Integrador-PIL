@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/complaint")
@@ -24,7 +25,7 @@ public class ComplaintController {
     }
 
     @GetMapping("/{id}")
-    public ComplaintModel getComplaintById(@PathVariable("id") Long complaintId) {
+    public Optional<ComplaintModel> getComplaintById(@PathVariable("id") Long complaintId){
         return this.complaintService.getComplaintById(complaintId);
     }
 

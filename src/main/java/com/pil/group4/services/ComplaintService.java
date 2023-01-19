@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ComplaintService implements IComplaintService {
@@ -18,8 +19,8 @@ public class ComplaintService implements IComplaintService {
     }
 
     @Override
-    public ComplaintModel getComplaintById(Long complaintId) {
-        return this.complaintRepository.findById(complaintId).orElse(null);
+    public Optional<ComplaintModel> getComplaintById(Long complaintId){
+        return complaintRepository.findById(complaintId);
     }
 
     @Override
