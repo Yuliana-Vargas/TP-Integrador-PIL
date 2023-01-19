@@ -1,6 +1,5 @@
 package com.pil.group4.services;
 
-import com.pil.group4.models.ClassificationType;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.SupervisorModel;
 import com.pil.group4.repositories.RecyclingZoneRepository;
@@ -42,8 +41,8 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
 
     @Override
-    public boolean deleteOfRecyclingZone(Long id){
-        try{
+    public boolean deleteOfRecyclingZone(Long id) {
+        try {
             recyclingZoneRepository.deleteById(id);
             return true;
         } catch (Exception e) {
@@ -59,7 +58,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         return recyclingZoneRepository.save(update);
     }
 
-    public boolean addSupervisor(Long id, Long idSupervisor){
+    public boolean addSupervisor(Long id, Long idSupervisor) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
         Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(idSupervisor);
         if (optionalUpdate.isPresent() && optionalSupervisor.isPresent()) {
@@ -86,4 +85,16 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         return Optional.of(recyclingZoneRepository.save(update));
     }
 
+    @Override
+    public Optional<RecyclingZoneModel> changeStateOfTheZone(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(SupervisorId);
+        if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty() || optionalUpdate.get().getSupervisor() == null ||
+                !Objects.equals(optionalUpdate.get().getSupervisor().getId(), SupervisorId)) {
+            return Optional.empty();
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+        update.setStateOfTheZone(recyclingZone.getStateOfTheZone());
+        return Optional.of(recyclingZoneRepository.save(update));
+    }
 }

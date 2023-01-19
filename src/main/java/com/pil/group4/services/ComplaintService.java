@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ComplaintService implements IComplaintService{
+public class ComplaintService implements IComplaintService {
 
     private final ComplaintRepository complaintRepository;
 
     @Autowired
-    public ComplaintService(ComplaintRepository complaintRepository){
+    public ComplaintService(ComplaintRepository complaintRepository) {
         this.complaintRepository = complaintRepository;
     }
 
