@@ -56,12 +56,12 @@ public class RecyclingZoneController {
                 ", wasn't added to the Recycling Zone with id: " + id;
     }
 
-    @PutMapping("/{id}/change-classification-type/supervisor/{idSupervisor}")
+    @PutMapping("/{id}/supervisor/{idSupervisor}/change-classification-type")
     public Optional<RecyclingZoneModel> changeClassificationType(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
     }
 
-    @PutMapping("/{id}/change-state-of-the-zone/supervisor/{idSupervisor}")
+    @PutMapping("/{id}/supervisor/{idSupervisor}/change-state-of-the-zone")
     public Optional<RecyclingZoneModel> changeStateOfTheZone(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.changeStateOfTheZone(id, idSupervisor, recyclingZone);
     }

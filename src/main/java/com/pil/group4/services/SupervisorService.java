@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class SupervisorService implements ISupervisorService{
+public class SupervisorService implements ISupervisorService {
     private final SupervisorRepository supervisorRepository;
 
     @Autowired
@@ -42,8 +42,8 @@ public class SupervisorService implements ISupervisorService{
     }
 
     @Override
-    public boolean deleteSupervisor(Long id){
-        try{
+    public boolean deleteSupervisor(Long id) {
+        try {
             supervisorRepository.deleteById(id);
             return true;
         } catch (Exception e) {

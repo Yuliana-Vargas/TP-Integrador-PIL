@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ComplaintService implements IComplaintService{
+public class ComplaintService implements IComplaintService {
 
     private final ComplaintRepository complaintRepository;
 
     @Autowired
-    public ComplaintService(ComplaintRepository complaintRepository){
+    public ComplaintService(ComplaintRepository complaintRepository) {
         this.complaintRepository = complaintRepository;
     }
 
     @Override
-    public ComplaintModel getComplaintById(Long complaintId){
+    public ComplaintModel getComplaintById(Long complaintId) {
         return this.complaintRepository.findById(complaintId).orElse(null);
     }
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/location")
@@ -24,7 +25,7 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    public LocationModel getLocationById(@PathVariable("id") Long idLocation) {
+    public Optional<LocationModel> getLocationById(@PathVariable("id") Long idLocation) {
         return this.locationService.getLocationById(idLocation);
     }
 

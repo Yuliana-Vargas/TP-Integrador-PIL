@@ -4,5 +4,5 @@ public enum OccupationCapacity {
     EMPTY,
     HALF_FULL,
     FULL,
-    EXCEEDED;
+    EXCEEDED
 }
