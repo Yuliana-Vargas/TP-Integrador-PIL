@@ -55,4 +55,10 @@ public class RecyclingZoneController {
                 ", was added to the Recycling Zone with id: " + id : "The Supervisor with id: " + idSupervisor +
                 ", wasn't added to the Recycling Zone with id: " + id;
     }
+
+    @PutMapping("/{id}/change-classification-type/supervisor/{idSupervisor}")
+    public Optional<RecyclingZoneModel> changeClassificationType(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
+        return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
+    }
+
 }
