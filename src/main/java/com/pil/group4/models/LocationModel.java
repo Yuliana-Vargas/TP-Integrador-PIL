@@ -1,6 +1,7 @@
 package com.pil.group4.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.awt.*;
 
 @Entity
