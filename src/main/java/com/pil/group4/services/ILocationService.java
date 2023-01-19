@@ -13,5 +13,7 @@ public interface ILocationService {
 
     LocationModel saveLocation(LocationModel locationModel);
 
+    LocationModel updateLocationById(Long idLocation, LocationModel locationModel);
+
     boolean deleteLocation(Long id);
 }

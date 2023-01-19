@@ -34,6 +34,11 @@ public class LocationController {
         return this.locationService.saveLocation(locationModel);
     }
 
+    @PutMapping("/{id}")
+    public LocationModel updateLocationById(@RequestBody LocationModel locationModel, @PathVariable Long id) {
+        return locationService.updateLocationById(id, locationModel);
+    }
+
     @DeleteMapping(path = "/{id}")
     public String deleteLocationById(@PathVariable("id") Long id) {
         boolean answer = locationService.deleteLocation(id);
