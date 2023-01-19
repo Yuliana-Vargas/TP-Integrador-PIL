@@ -29,9 +29,9 @@ public class RecyclingZoneModel {
     @JoinColumn(name = "fk_sup_id", referencedColumnName = "sup_id")
     private SupervisorModel supervisor;
 
-    /*
-    localization
-    */
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "fk_loc_id", referencedColumnName = "loc_id")
+    private LocationModel location;
 
     public Long getId() {
         return id;
@@ -84,4 +84,13 @@ public class RecyclingZoneModel {
     public void setSupervisor(SupervisorModel supervisor) {
         this.supervisor = supervisor;
     }
+
+    public LocationModel getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationModel location) {
+        this.location = location;
+    }
+
 }

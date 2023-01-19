@@ -10,4 +10,6 @@ public interface ILocationService {
 
     List<LocationModel> getLocations();
 
+    LocationModel saveLocation(LocationModel locationModel);
+
 }
