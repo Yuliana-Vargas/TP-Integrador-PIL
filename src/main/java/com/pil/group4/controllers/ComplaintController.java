@@ -14,17 +14,17 @@ public class ComplaintController {
     private final IComplaintService complaintService;
 
     @Autowired
-    public ComplaintController(IComplaintService complaintService){
+    public ComplaintController(IComplaintService complaintService) {
         this.complaintService = complaintService;
     }
 
     @GetMapping
-    public List<ComplaintModel> getComplaints(){
+    public List<ComplaintModel> getComplaints() {
         return this.complaintService.getComplaints();
     }
 
     @GetMapping("/{id}")
-    public ComplaintModel getComplaintById(@PathVariable("id") Long complaintId){
+    public ComplaintModel getComplaintById(@PathVariable("id") Long complaintId) {
         return this.complaintService.getComplaintById(complaintId);
     }
 

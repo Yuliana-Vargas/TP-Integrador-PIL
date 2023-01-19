@@ -25,11 +25,11 @@ public class RecyclingZoneModel {
     @Column
     private boolean needsReclassification;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_sup_id", referencedColumnName = "sup_id")
     private SupervisorModel supervisor;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_loc_id", referencedColumnName = "loc_id")
     private LocationModel location;
 
@@ -69,9 +69,13 @@ public class RecyclingZoneModel {
         this.stateOfTheZone = stateOfTheZone;
     }
 
-    public ClassificationType getClassificationType(){ return classificationType; }
+    public ClassificationType getClassificationType() {
+        return classificationType;
+    }
 
-    public void setClassificationType(ClassificationType classificationType){ this.classificationType = classificationType; }
+    public void setClassificationType(ClassificationType classificationType) {
+        this.classificationType = classificationType;
+    }
 
     public void setNeedsReclassification(boolean needsReclassification) {
         this.needsReclassification = needsReclassification;
