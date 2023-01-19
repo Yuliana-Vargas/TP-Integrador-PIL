@@ -80,7 +80,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty()) {
             return Optional.empty();
         }
-        if (!Objects.equals(optionalUpdate.get().getSupervisor().getId(), SupervisorId)) {
+        if  (optionalUpdate.get().getSupervisor() == null || !Objects.equals(optionalUpdate.get().getSupervisor().getId(), SupervisorId)) {
             return Optional.empty();
         }
         RecyclingZoneModel update = optionalUpdate.get();
