@@ -27,4 +27,9 @@ public class LocationService implements ILocationService{
         return this.locationRepository.findAll();
     }
 
+    @Override
+    public LocationModel saveLocation(LocationModel locationModel) {
+        return this.locationRepository.save(locationModel);
+    }
+
 }
