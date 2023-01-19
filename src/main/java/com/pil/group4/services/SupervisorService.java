@@ -38,9 +38,7 @@ public class SupervisorService implements ISupervisorService{
                     supervisor.setSupervisorName(newSupervisorModel.getSupervisorName());
                     return supervisorRepository.save(supervisor);
                 })
-                .orElseGet(() -> {
-                    return supervisorRepository.save(newSupervisorModel);
-                });
+                .orElseGet(() -> supervisorRepository.save(newSupervisorModel));
     }
 
     @Override
