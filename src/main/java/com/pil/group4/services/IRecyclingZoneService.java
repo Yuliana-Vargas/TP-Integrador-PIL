@@ -20,4 +20,6 @@ public interface IRecyclingZoneService {
     boolean addSupervisor(Long id, Long idSupervisor);
 
     Optional<RecyclingZoneModel> changeClassificationType(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
+
+    Optional<RecyclingZoneModel> needsReclassification(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 }
