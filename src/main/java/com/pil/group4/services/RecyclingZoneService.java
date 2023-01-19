@@ -1,5 +1,6 @@
 package com.pil.group4.services;
 
+import com.pil.group4.models.ClassificationType;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.SupervisorModel;
 import com.pil.group4.repositories.RecyclingZoneRepository;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -70,4 +72,20 @@ public class RecyclingZoneService implements IRecyclingZoneService {
             return false;
         }
     }
+
+    @Override
+    public Optional<RecyclingZoneModel> changeClassificationType(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(SupervisorId);
+        if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty()) {
+            return Optional.empty();
+        }
+        if (!Objects.equals(optionalUpdate.get().getSupervisor().getId(), SupervisorId)) {
+            return Optional.empty();
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+        update.setClassificationType(recyclingZone.getClassificationType());
+        return Optional.of(recyclingZoneRepository.save(update));
+    }
+
 }
