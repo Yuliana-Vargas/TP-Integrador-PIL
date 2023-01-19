@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public interface ISupervisorService {
-    ArrayList<SupervisorModel> getSupervisor();
+    ArrayList<SupervisorModel> getSupervisors();
 
     SupervisorModel saveSupervisor(SupervisorModel supervisorModel);
 

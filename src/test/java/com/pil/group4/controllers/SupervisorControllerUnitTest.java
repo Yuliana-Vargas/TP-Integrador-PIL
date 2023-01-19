@@ -24,6 +24,39 @@ public class SupervisorControllerUnitTest {
     private SupervisorController supervisorController;
 
     @Test
+    public void getSupervisorsTest() {
+        ArrayList<SupervisorModel> supervisors = new ArrayList<>();
+        assertNotNull(supervisors);
+        assertTrue(supervisors.isEmpty());
+
+        SupervisorModel supervisor = new SupervisorModel();
+        SupervisorModel supervisor2 = new SupervisorModel();
+        SupervisorModel supervisor3 = new SupervisorModel();
+
+        supervisor.setSupervisorName("Mario");
+        supervisor2.setSupervisorName("Luigi");
+        supervisor3.setSupervisorName("Yoshi");
+
+        supervisors.add(supervisor);
+        supervisors.add(supervisor2);
+        supervisors.add(supervisor3);
+
+        assertFalse(supervisors.isEmpty());
+        assertEquals(3, supervisors.size());
+        when(supervisorService.getSupervisors()).thenReturn(supervisors);
+        assertEquals(supervisors, supervisorController.getSupervisors());
+    }
+
+    @Test
+    public void saveSupervisorTest() {
+        SupervisorModel supervisor = new SupervisorModel();
+        supervisor.setSupervisorName("Mario");
+
+        when(supervisorService.saveSupervisor(supervisor)).thenReturn(supervisor);
+        assertEquals(supervisor, supervisorController.saveSupervisor(supervisor));
+    }
+
+    @Test
     public void updateSupervisorIdTest() {
         SupervisorModel supervisorModel = new SupervisorModel();
         supervisorModel.setId(1L);
