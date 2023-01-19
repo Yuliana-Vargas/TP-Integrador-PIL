@@ -2,6 +2,8 @@ package com.pil.group4.models;
 
 import jakarta.persistence.*;
 
+import java.awt.*;
+
 @Entity
 @Table(name = "location")
 public class LocationModel {
@@ -24,10 +26,7 @@ public class LocationModel {
     private int number;
 
     @Column
-    private int coordinateX;
-
-    @Column
-    private int coordinateY;
+    private Point coordinates;
 
     public Long getId() {
         return id;
@@ -69,20 +68,12 @@ public class LocationModel {
         this.number = number;
     }
 
-    public int getCoordinateX() {
-        return coordinateX;
+    public Point getCoordinates() {
+        return coordinates;
     }
 
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
-    }
-
-    public int getCoordinateY() {
-        return coordinateY;
-    }
-
-    public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
 }

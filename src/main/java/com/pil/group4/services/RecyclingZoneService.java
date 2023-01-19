@@ -41,8 +41,8 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
 
     @Override
-    public boolean deleteOfRecyclingZone(Long id){
-        try{
+    public boolean deleteOfRecyclingZone(Long id) {
+        try {
             recyclingZoneRepository.deleteById(id);
             return true;
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         return recyclingZoneRepository.save(update);
     }
 
-    public boolean addSupervisor(Long id, Long idSupervisor){
+    public boolean addSupervisor(Long id, Long idSupervisor) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
         Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(idSupervisor);
         if (optionalUpdate.isPresent() && optionalSupervisor.isPresent()) {
@@ -86,7 +86,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
 
     @Override
-    public Optional<RecyclingZoneModel> needsReclassification(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
+    public Optional<RecyclingZoneModel> changeStateOfTheZone(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
         Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(SupervisorId);
         if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty() || optionalUpdate.get().getSupervisor() == null ||
@@ -94,7 +94,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
             return Optional.empty();
         }
         RecyclingZoneModel update = optionalUpdate.get();
-        update.setNeedsReclassification(recyclingZone.isNeedsReclassification());
+        update.setStateOfTheZone(recyclingZone.getStateOfTheZone());
         return Optional.of(recyclingZoneRepository.save(update));
     }
 }
