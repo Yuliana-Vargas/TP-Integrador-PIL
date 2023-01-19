@@ -45,11 +45,10 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         try{
             recyclingZoneRepository.deleteById(id);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
-
 
     @Override
     public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZoneDetails) {
