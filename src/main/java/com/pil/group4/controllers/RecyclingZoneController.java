@@ -33,7 +33,7 @@ public class RecyclingZoneController {
     public RecyclingZoneModel saveRecyclingZone(@RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.saveRecyclingZone(recyclingZone);
     }
-    
+
     @PutMapping("/{id}")
     public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.updateRecyclingZoneById(id, recyclingZone);
@@ -59,6 +59,11 @@ public class RecyclingZoneController {
     @PutMapping("/{id}/change-classification-type/supervisor/{idSupervisor}")
     public Optional<RecyclingZoneModel> changeClassificationType(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
+    }
+
+    @PutMapping("/{id}/change-state-of-the-zone/supervisor/{idSupervisor}")
+    public Optional<RecyclingZoneModel> changeStateOfTheZone(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
+        return this.recyclingZoneService.changeStateOfTheZone(id, idSupervisor, recyclingZone);
     }
 
 }
