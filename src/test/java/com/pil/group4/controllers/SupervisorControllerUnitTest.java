@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -44,6 +45,20 @@ public class SupervisorControllerUnitTest {
         assertEquals(3, supervisors.size());
         when(supervisorService.getSupervisors()).thenReturn(supervisors);
         assertEquals(supervisors, supervisorController.getSupervisors());
+    }
+    
+    @Test
+    public void getSupervisorByIdTest() {
+        SupervisorModel supervisorModel = new SupervisorModel();
+        supervisorModel.setId(1L);
+        supervisorModel.setSupervisorName("Juan");
+
+
+        when(supervisorService.getSupervisorById(supervisorModel.getId())).thenReturn(Optional.of(supervisorModel));
+        Optional<SupervisorModel> supervisorById = supervisorService.getSupervisorById(1L);
+
+        assertNotNull(supervisorById);
+        assertEquals(supervisorModel.getId(), supervisorById.orElseThrow().getId());
     }
 
     @Test
