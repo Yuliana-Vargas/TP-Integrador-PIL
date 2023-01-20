@@ -2,7 +2,6 @@ package com.pil.group4.controllers;
 
 
 import com.pil.group4.models.LocationModel;
-import com.pil.group4.models.SupervisorModel;
 import com.pil.group4.services.LocationService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
