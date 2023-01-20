@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -152,6 +153,19 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         RecyclingZoneModel update = optionalUpdate.get();
         update.setNeedsReclassification(recyclingZone.isNeedsReclassification());
         return Optional.of(recyclingZoneRepository.save(update));
+    }
+
+    @Override
+    public String shortestRoute(List<Integer> idsRecZone, Point startingPoint) {
+        ArrayList<RecyclingZoneModel> recyclingZones = new ArrayList<>();
+        for (Integer id : idsRecZone) {
+            Optional<RecyclingZoneModel> optionalRecyclingZone = recyclingZoneRepository.findById(Long.valueOf(id));
+            optionalRecyclingZone.ifPresent(recyclingZones::add);
+        }
+
+        Main.BestRoute bestRoute = new Main.BestRoute(startingPoint, recyclingZones);
+        bestRoute.setShortestRoute();
+        return bestRoute.sortedRecyclingZonesString();
     }
 
 }

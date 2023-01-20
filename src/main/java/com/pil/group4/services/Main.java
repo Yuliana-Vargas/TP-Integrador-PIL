@@ -31,11 +31,8 @@ public class Main {
         recZones.add(zone3);
 
         BestRoute route = new BestRoute(new Point(0, 0), recZones);
-        route.setRoute();
-        ArrayList<RecyclingZoneModel> a =  route.getSortedRecyclingZones();
-        for (RecyclingZoneModel zone : a) {
-            System.out.println(zone.getLocation().getCoordinates());
-        }
+        route.setShortestRoute();
+        System.out.println(route.sortedRecyclingZonesString());
 
 
     }
@@ -55,7 +52,7 @@ public class Main {
             return sortedRecyclingZones;
         }
 
-        public void setRoute() {
+        public void setShortestRoute() {
             recyclingZones.removeIf(recyclingZone -> recyclingZone.getLocation() == null);
             if (recyclingZones.isEmpty()) {
                 return;
@@ -95,5 +92,21 @@ public class Main {
                     Math.pow(recyclingZoneModel.getLocation().getCoordinates().getY() - closestZone.getLocation().getCoordinates().getY(), 2));
         }
 
+        public String sortedRecyclingZonesString(){
+
+            if (sortedRecyclingZones.isEmpty()){
+                return "No recycling zones found";
+            }
+
+            if (sortedRecyclingZones.size() == 1){
+                return "Only one recycling zone found";
+            }
+
+            StringBuilder result = new StringBuilder("Starting from: (" + startingPoint.getX() + ", " + startingPoint.getY() + ") the best route is: ");
+            for (RecyclingZoneModel zone : sortedRecyclingZones) {
+                result.append(zone.getLocation().getCoordinates().toString());
+            }
+            return result.toString();
+        }
     }
 }
