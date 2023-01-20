@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,8 +27,8 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
 
     @Override
-    public ArrayList<RecyclingZoneModel> getRecyclingZones() {
-        return (ArrayList<RecyclingZoneModel>) recyclingZoneRepository.findAll();
+    public List<RecyclingZoneModel> getRecyclingZones() {
+        return recyclingZoneRepository.findAll();
     }
 
     @Override
@@ -58,7 +59,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         return recyclingZoneRepository.save(update);
     }
 
-    public boolean addSupervisor(Long id, Long idSupervisor) {
+    public String addSupervisor(Long id, Long idSupervisor) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
         Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(idSupervisor);
         if (optionalUpdate.isPresent() && optionalSupervisor.isPresent()) {
@@ -66,10 +67,38 @@ public class RecyclingZoneService implements IRecyclingZoneService {
             SupervisorModel supervisor = optionalSupervisor.get();
             update.setSupervisor(supervisor);
             recyclingZoneRepository.save(update);
-            return true;
+            return "Supervisor with id " + idSupervisor + " added to recycling zone with id " + id;
         } else {
-            return false;
+            return "Supervisor with id " + idSupervisor + " or recycling zone with id " + id + " not found";
         }
+    }
+
+    @Override
+    public String deleteSupervisor(Long id, Long idSupervisor) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(idSupervisor);
+        if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty()) {
+            return "Supervisor with id " + idSupervisor + " or recycling zone with id " + id + " not found";
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+        if ((update.getSupervisor() != null) && Objects.equals(update.getSupervisor().getId(), idSupervisor)){
+            update.setSupervisor(null);
+            recyclingZoneRepository.save(update);
+            return "Supervisor with id " + idSupervisor + " deleted from recycling zone with id " + id;
+        }
+        return "Supervisor with id " + idSupervisor + " not found in recycling zone with id " + id;
+    }
+
+    @Override
+    public Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor) {
+        List<RecyclingZoneModel> recyclingZones = recyclingZoneRepository.findAll();
+        for (RecyclingZoneModel recyclingZone : recyclingZones) {
+            if(!Objects.equals(recyclingZone.getSupervisor(), null) &&
+                    Objects.equals(recyclingZone.getSupervisor().getId(), idSupervisor)) {
+                return Optional.of(recyclingZone);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -97,4 +126,20 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         update.setStateOfTheZone(recyclingZone.getStateOfTheZone());
         return Optional.of(recyclingZoneRepository.save(update));
     }
+
+    @Override
+    public List<RecyclingZoneModel> getRecyclingZonesByDepartment(String department) {
+        List<RecyclingZoneModel> recyclingZones = recyclingZoneRepository.findAll();
+        ArrayList<RecyclingZoneModel> recyclingZonesByDepartment = new ArrayList<>();
+
+        for (RecyclingZoneModel recyclingZone : recyclingZones) {
+            if (!Objects.equals(recyclingZone.getLocation(), null) &&
+                    Objects.equals(recyclingZone.getLocation().getDepartment(), department)) {
+                recyclingZonesByDepartment.add(recyclingZone);
+            }
+        }
+
+        return recyclingZonesByDepartment;
+    }
+
 }

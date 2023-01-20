@@ -26,7 +26,7 @@ public class RecyclingZoneModel {
     private boolean needsReclassification;
 
     @JoinColumn(name = "fk_sup_id", referencedColumnName = "sup_id")
-    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private SupervisorModel supervisor;
 
     @JoinColumn(name = "fk_loc_id", referencedColumnName = "loc_id")
