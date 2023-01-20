@@ -32,4 +32,14 @@ public class ComplaintService implements IComplaintService {
     public ComplaintModel saveComplaint(ComplaintModel complaintModel) {
         return complaintRepository.save(complaintModel);
     }
+
+    @Override
+    public String deleteOfComplaint(Long id){
+        try{
+            complaintRepository.deleteById(id);
+            return "The Complaint with id: " + id + ", was removed";
+        } catch (Exception e){
+            return "The Complaint with id: " + id + ", wasn't removed";
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.pil.group4.controllers;
 
 import com.pil.group4.models.ComplaintModel;
+import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.TypeOfComplaint;
 import com.pil.group4.services.ComplaintService;
 import org.junit.jupiter.api.Test;
@@ -61,5 +62,15 @@ public class ComplaintControllerUnitTest {
 
         assertNotNull(complaintById);
         assertEquals(complaint.getId(), complaintById.orElseThrow().getId());
+    }
+    @Test
+    public void deleteComplaintTest() {
+        ComplaintModel complaintModel = new ComplaintModel();
+        complaintModel.setId(2L);
+
+        complaintService.deleteOfComplaint(complaintModel.getId());
+
+        assertFalse(complaintService.getComplaintById(2L).isPresent());
+
     }
 }
