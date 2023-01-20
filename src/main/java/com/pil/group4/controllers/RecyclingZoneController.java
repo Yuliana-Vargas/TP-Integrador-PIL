@@ -83,9 +83,9 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
     }
 
-    @GetMapping("recollection-route")
-    public String getRecollectionRoute(@RequestBody List<Integer> recyclingZonesIds, Point origin) {
-        return this.recyclingZoneService.shortestRoute(recyclingZonesIds, origin);
+    @GetMapping("recollection-route/x{x}/y{y}")
+    public String getRecollectionRoute(@RequestBody List<Integer> recyclingZonesIds, @PathVariable("x") Integer x, @PathVariable("y") Integer y) {
+        return this.recyclingZoneService.shortestRoute(recyclingZonesIds, new Point(x, y));
     }
 
 }

@@ -102,9 +102,9 @@ public class Main {
                 return "Only one recycling zone found";
             }
 
-            StringBuilder result = new StringBuilder("Starting from: (" + startingPoint.getX() + ", " + startingPoint.getY() + ") the best route is: ");
-            for (RecyclingZoneModel zone : sortedRecyclingZones) {
-                result.append(zone.getLocation().getCoordinates().toString());
+            StringBuilder result = new StringBuilder("Starting from point: (" + startingPoint.getX() + ", " + startingPoint.getY() + ") the best route is:\n");
+            for (RecyclingZoneModel sortedRecyclingZone : sortedRecyclingZones) {
+                result.append("Zone name: ").append(sortedRecyclingZone.getName()).append(": (").append(sortedRecyclingZone.getLocation().getCoordinates().getX()).append(", ").append(sortedRecyclingZone.getLocation().getCoordinates().getY()).append(")\n");
             }
             return result.toString();
         }
