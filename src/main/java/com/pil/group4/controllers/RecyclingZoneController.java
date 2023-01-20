@@ -1,9 +1,8 @@
 package com.pil.group4.controllers;
 
+import com.pil.group4.models.ClassificationType;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.services.IRecyclingZoneService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,10 +75,15 @@ public class RecyclingZoneController {
     public List<RecyclingZoneModel> getRecyclingZonesByDepartment(@PathVariable("department") String department) {
         return this.recyclingZoneService.getRecyclingZonesByDepartment(department);
     }
-    
+
     @PutMapping("/{id}/supervisor/{idSupervisor}/needs-reclassification")
     public Optional<RecyclingZoneModel> needsReclassification(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
+    }
+
+    @GetMapping("/findBy")
+    public List<RecyclingZoneModel> findByClassificationType(@RequestParam("classificationType") ClassificationType classificationType) {
+        return recyclingZoneService.findByClassificationType(classificationType);
     }
 
 }

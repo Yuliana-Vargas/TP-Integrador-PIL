@@ -2,7 +2,6 @@ package com.pil.group4.services;
 
 import com.pil.group4.models.ClassificationType;
 import com.pil.group4.models.RecyclingZoneModel;
-import com.pil.group4.models.StateOfTheZone;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,4 +37,5 @@ public interface IRecyclingZoneService {
     
     Optional<RecyclingZoneModel> needsReclassification(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
+    List<RecyclingZoneModel> findByClassificationType(ClassificationType classificationType);
 }

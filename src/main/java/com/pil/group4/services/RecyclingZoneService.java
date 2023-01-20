@@ -1,5 +1,6 @@
 package com.pil.group4.services;
 
+import com.pil.group4.models.ClassificationType;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.SupervisorModel;
 import com.pil.group4.repositories.RecyclingZoneRepository;
@@ -154,4 +155,8 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         return Optional.of(recyclingZoneRepository.save(update));
     }
 
+    @Override
+    public List<RecyclingZoneModel> findByClassificationType(ClassificationType classificationType) {
+        return recyclingZoneRepository.findByClassificationType(classificationType);
+    }
 }
