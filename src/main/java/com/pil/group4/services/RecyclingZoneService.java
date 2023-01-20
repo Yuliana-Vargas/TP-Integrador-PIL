@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -166,5 +167,30 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     @Override
     public List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(StateOfTheZone stateOfTheZone) {
         return recyclingZoneRepository.findRecyclingZoneByStateOfTheZone(stateOfTheZone);
+    }
+
+    @Override
+    public String shortestRoute(List<Integer> idsRecZone, Point startingPoint) {
+        ArrayList<RecyclingZoneModel> recyclingZones = new ArrayList<>();
+        for (Integer id : idsRecZone) {
+            Optional<RecyclingZoneModel> optionalRecyclingZone = recyclingZoneRepository.findById(Long.valueOf(id));
+            optionalRecyclingZone.ifPresent(recyclingZones::add);
+        }
+
+        Route.BestRoute bestRoute = new Route.BestRoute(startingPoint, recyclingZones);
+        bestRoute.setShortestRoute();
+        return bestRoute.sortedRecyclingZonesString();
+    }
+    
+    public Optional<RecyclingZoneModel> changeOccupationCapacity(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(SupervisorId);
+        if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty() || optionalUpdate.get().getSupervisor() == null ||
+                !Objects.equals(optionalUpdate.get().getSupervisor().getId(), SupervisorId)) {
+            return Optional.empty();
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+        update.setOccupationCapacity(recyclingZone.getOccupationCapacity());
+        return Optional.of(recyclingZoneRepository.save(update));
     }
 }

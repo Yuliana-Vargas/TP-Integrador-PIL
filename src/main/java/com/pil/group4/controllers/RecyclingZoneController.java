@@ -8,6 +8,7 @@ import com.pil.group4.services.IRecyclingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,4 +99,13 @@ public class RecyclingZoneController {
         return recyclingZoneService.findRecyclingZoneByStateOfTheZone(stateOfTheZone);
     }
 
+    @GetMapping("recollection-route/x{x}/y{y}")
+    public String getRecollectionRoute(@RequestBody List<Integer> recyclingZonesIds, @PathVariable("x") Integer x, @PathVariable("y") Integer y) {
+        return this.recyclingZoneService.shortestRoute(recyclingZonesIds, new Point(x, y));
+    }
+
+    @PutMapping("/{id}/supervisor/{idSupervisor}/change-occupation-capacity")
+    public Optional<RecyclingZoneModel> changeOccupationCapacity(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone){
+        return this.recyclingZoneService.changeOccupationCapacity(id, idSupervisor, recyclingZone);
+    }
 }

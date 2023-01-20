@@ -37,4 +37,10 @@ public class ComplaintController {
     public String deleteComplaintById(@PathVariable("id") Long id) {
         return this.complaintService.deleteOfComplaint(id);
     }
+
+    @PutMapping("/{id}")
+    public ComplaintModel updateComplaintById(@RequestBody ComplaintModel complaintModel, @PathVariable Long id) {
+        return complaintService.updateComplaintById(id, complaintModel);
+    }
+
 }

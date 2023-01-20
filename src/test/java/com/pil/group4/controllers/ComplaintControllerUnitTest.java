@@ -1,6 +1,7 @@
 package com.pil.group4.controllers;
 
 import com.pil.group4.models.ComplaintModel;
+import com.pil.group4.models.LocationModel;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.TypeOfComplaint;
 import com.pil.group4.services.ComplaintService;
@@ -72,5 +73,20 @@ public class ComplaintControllerUnitTest {
 
         assertFalse(complaintService.getComplaintById(2L).isPresent());
 
+    }
+    @Test
+    public void updateComplaintIdTest() {
+        ComplaintModel complaintModel = new ComplaintModel();
+        complaintModel.setId(1L);
+        complaintModel.setTypeOfComplaint(TypeOfComplaint.ANOTHER_REASON);
+        complaintModel.setDescription("they are recycling badly");
+
+        ComplaintModel complaintModel1 = new ComplaintModel();
+        complaintModel1.setId(1L);
+        complaintModel1.setTypeOfComplaint(TypeOfComplaint.FOR_MISUSE);
+        complaintModel1.setDescription("they are recycling badly");
+
+        when(complaintController.updateComplaintById(complaintModel1, complaintModel.getId())).thenReturn(complaintModel1);
+        assertEquals(complaintModel1, complaintController.updateComplaintById(complaintModel1, complaintModel.getId()));
     }
 }

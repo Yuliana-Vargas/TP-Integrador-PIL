@@ -42,4 +42,14 @@ public class ComplaintService implements IComplaintService {
             return "The Complaint with id: " + id + ", wasn't removed";
         }
     }
+    @Override
+    public ComplaintModel updateComplaintById(Long idComplaint, ComplaintModel complaintModel) {
+        return complaintRepository.findById(idComplaint)
+                .map(supervisor -> {
+                    supervisor.setTypeOfComplaint(complaintModel.getTypeOfComplaint());
+                    supervisor.setDescription(complaintModel.getDescription());
+                    return complaintRepository.save(supervisor);
+                })
+                .orElseGet(() -> complaintRepository.save(complaintModel));
+    }
 }

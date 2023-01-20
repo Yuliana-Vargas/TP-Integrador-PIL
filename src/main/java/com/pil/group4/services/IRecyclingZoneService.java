@@ -5,6 +5,7 @@ import com.pil.group4.models.OccupationCapacity;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.StateOfTheZone;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,8 @@ public interface IRecyclingZoneService {
 
     Optional<RecyclingZoneModel> changeStateOfTheZone(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
+    Optional<RecyclingZoneModel> changeOccupationCapacity(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
+
     //Optional<RecyclingZoneModel> changeLocation(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
     Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor);
@@ -43,4 +46,6 @@ public interface IRecyclingZoneService {
     List<RecyclingZoneModel> findRecyclingZoneByOccupationCapacity(OccupationCapacity occupationCapacity);
 
     List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(StateOfTheZone stateOfTheZone);
+
+    String shortestRoute(List<Integer> idsRecZone, Point startingPoint);
 }
