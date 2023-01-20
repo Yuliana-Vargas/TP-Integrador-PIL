@@ -5,11 +5,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "recycling_zone")
 public class RecyclingZoneModel {
-
     @Id
-    @Column(name = "rec_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "rec-zone_id", nullable = false)
     private Long id;
 
     @Column
