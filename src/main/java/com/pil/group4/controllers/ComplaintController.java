@@ -33,4 +33,13 @@ public class ComplaintController {
     public ComplaintModel saveComplaint(@RequestBody ComplaintModel complaintModel) {
         return complaintService.saveComplaint(complaintModel);
     }
+    @DeleteMapping(path = "/{id}")
+    public String deleteComplaintById(@PathVariable("id") Long id) {
+        boolean answer = complaintService.deleteOfComplaint(id);
+        if (answer) {
+            return "The Complaint with the id: " + id + ", was removed";
+        } else {
+            return "The Complaint with the id: " + id + ", wasn't removed";
+        }
+    }
 }
