@@ -5,6 +5,9 @@ import com.pil.group4.models.OccupationCapacity;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.StateOfTheZone;
 import com.pil.group4.services.IRecyclingZoneService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +31,13 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.getRecyclingZones();
     }
 
+    @Operation(summary = "Get recycling zone by id")
+    @ApiResponse(responseCode = "200", description = "Found the recycling zone",
+            content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json",
+                    schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = RecyclingZoneModel.class)))
     @GetMapping("/{id}")
-    public Optional<RecyclingZoneModel> getRecyclingZoneById(@PathVariable("id") Long idRecyclingZone) {
+    public Optional<RecyclingZoneModel> getRecyclingZoneById(@Parameter(description =
+            "Id of the recycling zone to be searched") @PathVariable("id") Long idRecyclingZone) {
         return recyclingZoneService.getRecyclingZoneById(idRecyclingZone);
     }
 
