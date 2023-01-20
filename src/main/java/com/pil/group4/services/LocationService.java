@@ -48,12 +48,12 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public boolean deleteLocation(Long id) {
+    public String deleteLocation(Long id) {
         try {
             locationRepository.deleteById(id);
-            return true;
+            return "The Location with the id: " + id + ", was removed";
         } catch (Exception e) {
-            return false;
+            return "The Location with the id: " + id + ", wasn't removed";
         }
     }
 }

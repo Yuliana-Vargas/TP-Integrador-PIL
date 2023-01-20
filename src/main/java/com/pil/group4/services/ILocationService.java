@@ -15,5 +15,5 @@ public interface ILocationService {
 
     LocationModel updateLocationById(Long idLocation, LocationModel locationModel);
 
-    boolean deleteLocation(Long id);
+    String deleteLocation(Long id);
 }

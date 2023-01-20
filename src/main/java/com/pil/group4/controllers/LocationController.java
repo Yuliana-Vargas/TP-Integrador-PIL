@@ -41,12 +41,7 @@ public class LocationController {
 
     @DeleteMapping(path = "/{id}")
     public String deleteLocationById(@PathVariable("id") Long id) {
-        boolean answer = locationService.deleteLocation(id);
-        if (answer) {
-            return "The Location with the id: " + id + ", was removed";
-        } else {
-            return "The Location with the id: " + id + ", wasn't removed";
-        }
+        return locationService.deleteLocation(id);
     }
 
 }
