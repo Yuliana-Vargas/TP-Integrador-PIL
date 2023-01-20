@@ -1,9 +1,10 @@
 package com.pil.group4.controllers;
 
+import com.pil.group4.models.ClassificationType;
+import com.pil.group4.models.OccupationCapacity;
 import com.pil.group4.models.RecyclingZoneModel;
+import com.pil.group4.models.StateOfTheZone;
 import com.pil.group4.services.IRecyclingZoneService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,12 +78,26 @@ public class RecyclingZoneController {
     public List<RecyclingZoneModel> getRecyclingZonesByDepartment(@PathVariable("department") String department) {
         return this.recyclingZoneService.getRecyclingZonesByDepartment(department);
     }
-    
+
     @PutMapping("/{id}/supervisor/{idSupervisor}/needs-reclassification")
     public Optional<RecyclingZoneModel> needsReclassification(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
     }
 
+    @GetMapping("/findByClassificationType")
+    public List<RecyclingZoneModel> findRecyclingZoneByClassificationType(@RequestParam("classificationType") ClassificationType classificationType) {
+        return recyclingZoneService.findRecyclingZoneByClassificationType(classificationType);
+    }
+
+    @GetMapping("/findByOccupationCapacity")
+    public List<RecyclingZoneModel> findRecyclingZoneByOccupationCapacity(@RequestParam("occupationCapacity") OccupationCapacity occupationCapacity) {
+        return recyclingZoneService.findRecyclingZoneByOccupationCapacity(occupationCapacity);
+    }
+
+    @GetMapping("/findByStateOfTheZone")
+    public List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(@RequestParam("stateOfTheZone") StateOfTheZone stateOfTheZone) {
+        return recyclingZoneService.findRecyclingZoneByStateOfTheZone(stateOfTheZone);
+    }
 
     @GetMapping("recollection-route/x{x}/y{y}")
     public String getRecollectionRoute(@RequestBody List<Integer> recyclingZonesIds, @PathVariable("x") Integer x, @PathVariable("y") Integer y) {
@@ -93,5 +108,4 @@ public class RecyclingZoneController {
     public Optional<RecyclingZoneModel> changeOccupationCapacity(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone){
         return this.recyclingZoneService.changeOccupationCapacity(id, idSupervisor, recyclingZone);
     }
-
 }

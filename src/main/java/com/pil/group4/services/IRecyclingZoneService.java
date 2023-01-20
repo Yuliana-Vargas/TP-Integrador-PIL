@@ -1,6 +1,7 @@
 package com.pil.group4.services;
 
 import com.pil.group4.models.ClassificationType;
+import com.pil.group4.models.OccupationCapacity;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.models.StateOfTheZone;
 
@@ -33,7 +34,6 @@ public interface IRecyclingZoneService {
 
     Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor);
 
-    //List<RecyclingZoneModel> getRecyclingZonesByClassificationType(ClassificationType classificationType);
 
     //List<RecyclingZoneModel> getRecyclingZonesByStateOfTheZone(StateOfTheZone stateOfTheZone);
 
@@ -41,6 +41,11 @@ public interface IRecyclingZoneService {
     
     Optional<RecyclingZoneModel> needsReclassification(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
-    String shortestRoute(List<Integer> idsRecZone, Point startingPoint);
+    List<RecyclingZoneModel> findRecyclingZoneByClassificationType(ClassificationType classificationType);
 
+    List<RecyclingZoneModel> findRecyclingZoneByOccupationCapacity(OccupationCapacity occupationCapacity);
+
+    List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(StateOfTheZone stateOfTheZone);
+
+    String shortestRoute(List<Integer> idsRecZone, Point startingPoint);
 }
