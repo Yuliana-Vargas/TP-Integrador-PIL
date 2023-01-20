@@ -2,6 +2,8 @@ package com.pil.group4.controllers;
 
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.services.IRecyclingZoneService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,12 +43,8 @@ public class RecyclingZoneController {
 
     @DeleteMapping(path = "/{id}")
     public String deleteOfRecyclingZoneById(@PathVariable("id") Long id) {
-        boolean answer = this.recyclingZoneService.deleteOfRecyclingZone(id);
-        if (answer) {
-            return "The Recycling Zone with id: " + id + ", was removed";
-        } else {
-            return "The Recycling Zone with id: " + id + ", wasn't removed";
-        }
+        return this.recyclingZoneService.deleteOfRecyclingZone(id);
+
     }
 
     @PutMapping("/{id}/supervisor/{idSupervisor}")

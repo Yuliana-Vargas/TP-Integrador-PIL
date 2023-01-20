@@ -42,12 +42,12 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
     
     @Override
-    public boolean deleteOfRecyclingZone(Long id){
+    public String deleteOfRecyclingZone(Long id){
         try{
             recyclingZoneRepository.deleteById(id);
-            return true;
+            return "The Recycling Zone with id: " + id + ", was removed";
         } catch (Exception e){
-            return false;
+            return "The Recycling Zone with id: " + id + ", wasn't removed";
         }
     }
     @Override

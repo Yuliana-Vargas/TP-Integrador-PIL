@@ -14,7 +14,7 @@ public interface IRecyclingZoneService {
 
     RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel);
 
-    boolean deleteOfRecyclingZone(Long idRecyclingZone);
+    String deleteOfRecyclingZone(Long idRecyclingZone);
 
     RecyclingZoneModel updateRecyclingZoneById(Long idRecyclingZone, RecyclingZoneModel recyclingZoneModel);
 
