@@ -34,6 +34,20 @@ public class LocationService implements ILocationService {
     }
 
     @Override
+    public LocationModel updateLocationById(Long idLocation, LocationModel locationModel) {
+        return locationRepository.findById(idLocation)
+                .map(supervisor -> {
+                    supervisor.setAddress(locationModel.getAddress());
+                    supervisor.setCoordinates(locationModel.getCoordinates());
+                    supervisor.setDepartment(locationModel.getDepartment());
+                    supervisor.setNumber(locationModel.getNumber());
+                    supervisor.setNeighborhood(locationModel.getNeighborhood());
+                    return locationRepository.save(supervisor);
+                })
+                .orElseGet(() -> locationRepository.save(locationModel));
+    }
+
+    @Override
     public boolean deleteLocation(Long id) {
         try {
             locationRepository.deleteById(id);
