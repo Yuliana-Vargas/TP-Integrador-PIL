@@ -46,6 +46,7 @@ public class SupervisorControllerUnitTest {
         when(supervisorService.getSupervisors()).thenReturn(supervisors);
         assertEquals(supervisors, supervisorController.getSupervisors());
     }
+    
     @Test
     public void getSupervisorByIdTest() {
         SupervisorModel supervisorModel = new SupervisorModel();
