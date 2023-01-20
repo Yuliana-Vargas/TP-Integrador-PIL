@@ -3,6 +3,7 @@ package com.pil.group4.services;
 import com.pil.group4.models.ClassificationType;
 import com.pil.group4.models.OccupationCapacity;
 import com.pil.group4.models.RecyclingZoneModel;
+import com.pil.group4.models.StateOfTheZone;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +41,6 @@ public interface IRecyclingZoneService {
     List<RecyclingZoneModel> findRecyclingZoneByClassificationType(ClassificationType classificationType);
 
     List<RecyclingZoneModel> findRecyclingZoneByOccupationCapacity(OccupationCapacity occupationCapacity);
+
+    List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(StateOfTheZone stateOfTheZone);
 }

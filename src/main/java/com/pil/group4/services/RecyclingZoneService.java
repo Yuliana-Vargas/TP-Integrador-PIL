@@ -1,9 +1,6 @@
 package com.pil.group4.services;
 
-import com.pil.group4.models.ClassificationType;
-import com.pil.group4.models.OccupationCapacity;
-import com.pil.group4.models.RecyclingZoneModel;
-import com.pil.group4.models.SupervisorModel;
+import com.pil.group4.models.*;
 import com.pil.group4.repositories.RecyclingZoneRepository;
 import com.pil.group4.repositories.SupervisorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,5 +161,10 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     @Override
     public List<RecyclingZoneModel> findRecyclingZoneByOccupationCapacity(OccupationCapacity occupationCapacity) {
         return recyclingZoneRepository.findRecyclingZoneByOccupationCapacity(occupationCapacity);
+    }
+
+    @Override
+    public List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(StateOfTheZone stateOfTheZone) {
+        return recyclingZoneRepository.findRecyclingZoneByStateOfTheZone(stateOfTheZone);
     }
 }

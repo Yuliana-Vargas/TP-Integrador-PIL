@@ -3,6 +3,7 @@ package com.pil.group4.controllers;
 import com.pil.group4.models.ClassificationType;
 import com.pil.group4.models.OccupationCapacity;
 import com.pil.group4.models.RecyclingZoneModel;
+import com.pil.group4.models.StateOfTheZone;
 import com.pil.group4.services.IRecyclingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -90,6 +91,11 @@ public class RecyclingZoneController {
     @GetMapping("/findByOccupationCapacity")
     public List<RecyclingZoneModel> findRecyclingZoneByOccupationCapacity(@RequestParam("occupationCapacity") OccupationCapacity occupationCapacity) {
         return recyclingZoneService.findRecyclingZoneByOccupationCapacity(occupationCapacity);
+    }
+
+    @GetMapping("/findByStateOfTheZone")
+    public List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(@RequestParam("stateOfTheZone") StateOfTheZone stateOfTheZone) {
+        return recyclingZoneService.findRecyclingZoneByStateOfTheZone(stateOfTheZone);
     }
 
 }
