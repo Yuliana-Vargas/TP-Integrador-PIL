@@ -34,12 +34,12 @@ public class ComplaintService implements IComplaintService {
     }
 
     @Override
-    public boolean deleteOfComplaint(Long id){
+    public String deleteOfComplaint(Long id){
         try{
             complaintRepository.deleteById(id);
-            return true;
+            return "The Complaint with id: " + id + ", was removed";
         } catch (Exception e){
-            return false;
+            return "The Complaint with id: " + id + ", wasn't removed";
         }
     }
 }
