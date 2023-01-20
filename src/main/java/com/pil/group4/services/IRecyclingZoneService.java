@@ -30,12 +30,7 @@ public interface IRecyclingZoneService {
 
     Optional<RecyclingZoneModel> changeOccupationCapacity(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
-    //Optional<RecyclingZoneModel> changeLocation(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
-
     Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor);
-
-
-    //List<RecyclingZoneModel> getRecyclingZonesByStateOfTheZone(StateOfTheZone stateOfTheZone);
 
     List<RecyclingZoneModel> getRecyclingZonesByDepartment(String department);
     
