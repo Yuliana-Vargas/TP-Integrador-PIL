@@ -5,9 +5,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "recycling_zone")
 public class RecyclingZoneModel {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "rec-zone_id", nullable = false)
+    @Column(name = "rec_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     private Long id;
 
     @Column
