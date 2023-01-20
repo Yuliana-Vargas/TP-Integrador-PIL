@@ -83,9 +83,15 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
     }
 
+
     @GetMapping("recollection-route/x{x}/y{y}")
     public String getRecollectionRoute(@RequestBody List<Integer> recyclingZonesIds, @PathVariable("x") Integer x, @PathVariable("y") Integer y) {
         return this.recyclingZoneService.shortestRoute(recyclingZonesIds, new Point(x, y));
+    }
+
+    @PutMapping("/{id}/supervisor/{idSupervisor}/change-occupation-capacity")
+    public Optional<RecyclingZoneModel> changeOccupationCapacity(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone){
+        return this.recyclingZoneService.changeOccupationCapacity(id, idSupervisor, recyclingZone);
     }
 
 }

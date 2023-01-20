@@ -42,12 +42,12 @@ public class SupervisorService implements ISupervisorService {
     }
 
     @Override
-    public boolean deleteSupervisor(Long id) {
+    public String deleteSupervisor(Long id) {
         try {
             supervisorRepository.deleteById(id);
-            return true;
+            return "The Supervisor with the id: " + id + ", was removed";
         } catch (Exception e) {
-            return false;
+            return "The Supervisor with the id: " + id + ", wasn't removed";
         }
     }
 }

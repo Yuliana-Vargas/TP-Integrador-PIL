@@ -156,6 +156,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
 
     @Override
+
     public String shortestRoute(List<Integer> idsRecZone, Point startingPoint) {
         ArrayList<RecyclingZoneModel> recyclingZones = new ArrayList<>();
         for (Integer id : idsRecZone) {
@@ -166,6 +167,17 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         Main.BestRoute bestRoute = new Main.BestRoute(startingPoint, recyclingZones);
         bestRoute.setShortestRoute();
         return bestRoute.sortedRecyclingZonesString();
+    }
+    public Optional<RecyclingZoneModel> changeOccupationCapacity(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(SupervisorId);
+        if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty() || optionalUpdate.get().getSupervisor() == null ||
+                !Objects.equals(optionalUpdate.get().getSupervisor().getId(), SupervisorId)) {
+            return Optional.empty();
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+        update.setOccupationCapacity(recyclingZone.getOccupationCapacity());
+        return Optional.of(recyclingZoneRepository.save(update));
     }
 
 }
