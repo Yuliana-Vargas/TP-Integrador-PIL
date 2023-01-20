@@ -35,5 +35,7 @@ public interface IRecyclingZoneService {
     //List<RecyclingZoneModel> getRecyclingZonesByStateOfTheZone(StateOfTheZone stateOfTheZone);
 
     List<RecyclingZoneModel> getRecyclingZonesByDepartment(String department);
+    
+    Optional<RecyclingZoneModel> needsReclassification(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
 }

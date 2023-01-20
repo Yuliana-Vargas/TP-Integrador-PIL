@@ -1,13 +1,14 @@
 package com.pil.group4.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "recycling_zone")
 public class RecyclingZoneModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "rec-zone_id", nullable = false)
+    @Column(name = "rec_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     private Long id;
 
     @Column
@@ -30,7 +31,7 @@ public class RecyclingZoneModel {
     private SupervisorModel supervisor;
 
     @JoinColumn(name = "fk_loc_id", referencedColumnName = "loc_id")
-    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LocationModel location;
 
     public Long getId() {

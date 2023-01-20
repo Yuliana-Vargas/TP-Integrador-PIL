@@ -78,5 +78,10 @@ public class RecyclingZoneController {
     public List<RecyclingZoneModel> getRecyclingZonesByDepartment(@PathVariable("department") String department) {
         return this.recyclingZoneService.getRecyclingZonesByDepartment(department);
     }
+    
+    @PutMapping("/{id}/supervisor/{idSupervisor}/needs-reclassification")
+    public Optional<RecyclingZoneModel> needsReclassification(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
+        return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
+    }
 
 }
