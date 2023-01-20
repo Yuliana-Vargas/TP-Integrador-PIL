@@ -26,6 +26,8 @@ public interface IRecyclingZoneService {
 
     Optional<RecyclingZoneModel> changeStateOfTheZone(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
+    Optional<RecyclingZoneModel> changeOccupationCapacity(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
+
     //Optional<RecyclingZoneModel> changeLocation(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
     Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor);

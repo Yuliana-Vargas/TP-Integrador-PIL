@@ -14,5 +14,5 @@ public interface ISupervisorService {
 
     SupervisorModel updateSupervisorById(SupervisorModel newSupervisorModel, Long id);
 
-    boolean deleteSupervisor(Long id);
+    String deleteSupervisor(Long id);
 }
