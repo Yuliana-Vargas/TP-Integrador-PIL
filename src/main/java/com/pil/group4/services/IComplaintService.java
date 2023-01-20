@@ -12,5 +12,8 @@ public interface IComplaintService {
     List<ComplaintModel> getComplaints();
 
     ComplaintModel saveComplaint(ComplaintModel complaintModel);
+
     String deleteOfComplaint(Long idComplaint);
+
+    ComplaintModel updateComplaintById(Long idComplaint, ComplaintModel complaintModel);
 }
