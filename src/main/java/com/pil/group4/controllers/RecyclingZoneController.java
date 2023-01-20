@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,6 +81,12 @@ public class RecyclingZoneController {
     @PutMapping("/{id}/supervisor/{idSupervisor}/needs-reclassification")
     public Optional<RecyclingZoneModel> needsReclassification(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
+    }
+
+
+    @GetMapping("recollection-route/x{x}/y{y}")
+    public String getRecollectionRoute(@RequestBody List<Integer> recyclingZonesIds, @PathVariable("x") Integer x, @PathVariable("y") Integer y) {
+        return this.recyclingZoneService.shortestRoute(recyclingZonesIds, new Point(x, y));
     }
 
     @PutMapping("/{id}/supervisor/{idSupervisor}/change-occupation-capacity")
