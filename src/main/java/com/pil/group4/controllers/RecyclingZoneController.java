@@ -5,7 +5,7 @@ import com.pil.group4.services.IRecyclingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +20,7 @@ public class RecyclingZoneController {
     }
 
     @GetMapping
-    public ArrayList<RecyclingZoneModel> getRecyclingZones() {
+    public List<RecyclingZoneModel> getRecyclingZones() {
         return this.recyclingZoneService.getRecyclingZones();
     }
 
@@ -51,9 +51,12 @@ public class RecyclingZoneController {
 
     @PutMapping("/{id}/supervisor/{idSupervisor}")
     public String addSupervisor(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor) {
-        return this.recyclingZoneService.addSupervisor(id, idSupervisor) ? "The Supervisor with id: " + idSupervisor +
-                ", was added to the Recycling Zone with id: " + id : "The Supervisor with id: " + idSupervisor +
-                ", wasn't added to the Recycling Zone with id: " + id;
+        return this.recyclingZoneService.addSupervisor(id, idSupervisor);
+    }
+
+    @DeleteMapping("/{id}/supervisor/{idSupervisor}")
+    public String deleteSupervisor(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor) {
+        return this.recyclingZoneService.deleteSupervisor(id, idSupervisor);
     }
 
     @PutMapping("/{id}/supervisor/{idSupervisor}/change-classification-type")
@@ -66,6 +69,16 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.changeStateOfTheZone(id, idSupervisor, recyclingZone);
     }
 
+    @GetMapping("/supervisor/{idSupervisor}")
+    public Optional<RecyclingZoneModel> getRecyclingZonesBySupervisor(@PathVariable("idSupervisor") Long idSupervisor) {
+        return this.recyclingZoneService.getRecyclingZoneBySupervisor(idSupervisor);
+    }
+
+    @GetMapping("/location/department/{department}")
+    public List<RecyclingZoneModel> getRecyclingZonesByDepartment(@PathVariable("department") String department) {
+        return this.recyclingZoneService.getRecyclingZonesByDepartment(department);
+    }
+    
     @PutMapping("/{id}/supervisor/{idSupervisor}/needs-reclassification")
     public Optional<RecyclingZoneModel> needsReclassification(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone) {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
