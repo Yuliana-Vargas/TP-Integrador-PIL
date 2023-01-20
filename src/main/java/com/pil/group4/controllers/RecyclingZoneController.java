@@ -82,4 +82,9 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
     }
 
+    @PutMapping("/{id}/supervisor/{idSupervisor}/change-occupation-capacity")
+    public Optional<RecyclingZoneModel> changeOccupationCapacity(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone){
+        return this.recyclingZoneService.changeOccupationCapacity(id, idSupervisor, recyclingZone);
+    }
+
 }

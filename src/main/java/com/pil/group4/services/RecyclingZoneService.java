@@ -154,4 +154,17 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         return Optional.of(recyclingZoneRepository.save(update));
     }
 
+    @Override
+    public Optional<RecyclingZoneModel> changeOccupationCapacity(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(SupervisorId);
+        if (optionalUpdate.isEmpty() || optionalSupervisor.isEmpty() || optionalUpdate.get().getSupervisor() == null ||
+                !Objects.equals(optionalUpdate.get().getSupervisor().getId(), SupervisorId)) {
+            return Optional.empty();
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+        update.setOccupationCapacity(recyclingZone.getOccupationCapacity());
+        return Optional.of(recyclingZoneRepository.save(update));
+    }
+
 }
