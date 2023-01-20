@@ -29,7 +29,6 @@ public interface IRecyclingZoneService {
 
     Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor);
 
-    //List<RecyclingZoneModel> getRecyclingZonesByClassificationType(ClassificationType classificationType);
 
     //List<RecyclingZoneModel> getRecyclingZonesByStateOfTheZone(StateOfTheZone stateOfTheZone);
 
@@ -37,5 +36,5 @@ public interface IRecyclingZoneService {
     
     Optional<RecyclingZoneModel> needsReclassification(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
-    List<RecyclingZoneModel> findByClassificationType(ClassificationType classificationType);
+    List<RecyclingZoneModel> findRecyclingZoneByClassificationType(ClassificationType classificationType);
 }

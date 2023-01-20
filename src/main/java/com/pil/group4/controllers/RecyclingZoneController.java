@@ -82,8 +82,8 @@ public class RecyclingZoneController {
     }
 
     @GetMapping("/findBy")
-    public List<RecyclingZoneModel> findByClassificationType(@RequestParam("classificationType") ClassificationType classificationType) {
-        return recyclingZoneService.findByClassificationType(classificationType);
+    public List<RecyclingZoneModel> findRecyclingZoneByClassificationType(@RequestParam("classificationType") ClassificationType classificationType) {
+        return recyclingZoneService.findRecyclingZoneByClassificationType(classificationType);
     }
 
 }

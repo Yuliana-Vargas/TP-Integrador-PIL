@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RecyclingZoneRepository extends JpaRepository<RecyclingZoneModel, Long> {
-    List<RecyclingZoneModel> findByClassificationType(ClassificationType classificationType);
+    List<RecyclingZoneModel> findRecyclingZoneByClassificationType(ClassificationType classificationType);
 }

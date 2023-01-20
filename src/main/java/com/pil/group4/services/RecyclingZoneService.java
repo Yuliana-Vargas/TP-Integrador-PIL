@@ -156,7 +156,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
 
     @Override
-    public List<RecyclingZoneModel> findByClassificationType(ClassificationType classificationType) {
-        return recyclingZoneRepository.findByClassificationType(classificationType);
+    public List<RecyclingZoneModel> findRecyclingZoneByClassificationType(ClassificationType classificationType) {
+        return recyclingZoneRepository.findRecyclingZoneByClassificationType(classificationType);
     }
 }
