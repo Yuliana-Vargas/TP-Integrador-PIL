@@ -6,7 +6,7 @@ import com.pil.group4.models.RecyclingZoneModel;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Main {
+public class Route {
     public static void main(String[] args) {
         RecyclingZoneModel zone1 = new RecyclingZoneModel();
         RecyclingZoneModel zone2 = new RecyclingZoneModel();
