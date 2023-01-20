@@ -1,6 +1,7 @@
 package com.pil.group4.controllers;
 
 import com.pil.group4.models.ClassificationType;
+import com.pil.group4.models.OccupationCapacity;
 import com.pil.group4.models.RecyclingZoneModel;
 import com.pil.group4.services.IRecyclingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,9 +82,14 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.changeClassificationType(id, idSupervisor, recyclingZone);
     }
 
-    @GetMapping("/findBy")
+    @GetMapping("/findByClassificationType")
     public List<RecyclingZoneModel> findRecyclingZoneByClassificationType(@RequestParam("classificationType") ClassificationType classificationType) {
         return recyclingZoneService.findRecyclingZoneByClassificationType(classificationType);
+    }
+
+    @GetMapping("/findByOccupationCapacity")
+    public List<RecyclingZoneModel> findRecyclingZoneByOccupationCapacity(@RequestParam("occupationCapacity") OccupationCapacity occupationCapacity) {
+        return recyclingZoneService.findRecyclingZoneByOccupationCapacity(occupationCapacity);
     }
 
 }
