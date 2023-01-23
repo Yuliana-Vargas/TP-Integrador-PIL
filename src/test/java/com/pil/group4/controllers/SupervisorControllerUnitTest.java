@@ -1,98 +1,109 @@
 package com.pil.group4.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pil.group4.models.SupervisorModel;
 import com.pil.group4.services.SupervisorService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@WebMvcTest(controllers = SupervisorController.class)
 public class SupervisorControllerUnitTest {
 
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockBean
     private SupervisorService supervisorService;
 
-    @InjectMocks
-    private SupervisorController supervisorController;
+    private List<SupervisorModel> supervisorList;
 
-    @Test
-    public void getSupervisorsTest() {
-        ArrayList<SupervisorModel> supervisors = new ArrayList<>();
-        assertNotNull(supervisors);
-        assertTrue(supervisors.isEmpty());
+    @BeforeEach
+    void setUp() {
+        this.supervisorList = new ArrayList<>();
+        this.supervisorList.add(new SupervisorModel(1L, "Supervisor1"));
+        this.supervisorList.add(new SupervisorModel(2L, "Supervisor2"));
+        this.supervisorList.add(new SupervisorModel(3L, "Supervisor3"));
 
-        SupervisorModel supervisor = new SupervisorModel();
-        SupervisorModel supervisor2 = new SupervisorModel();
-        SupervisorModel supervisor3 = new SupervisorModel();
-
-        supervisor.setSupervisorName("Mario");
-        supervisor2.setSupervisorName("Luigi");
-        supervisor3.setSupervisorName("Yoshi");
-
-        supervisors.add(supervisor);
-        supervisors.add(supervisor2);
-        supervisors.add(supervisor3);
-
-        assertFalse(supervisors.isEmpty());
-        assertEquals(3, supervisors.size());
-        when(supervisorService.getSupervisors()).thenReturn(supervisors);
-        assertEquals(supervisors, supervisorController.getSupervisors());
     }
-    
+
     @Test
-    public void getSupervisorByIdTest() {
-        SupervisorModel supervisorModel = new SupervisorModel();
-        supervisorModel.setId(1L);
-        supervisorModel.setSupervisorName("Juan");
+    void getSupervisorsTest() throws Exception {
+        when(supervisorService.getSupervisors()).thenReturn((ArrayList<SupervisorModel>) supervisorList);
 
+        mockMvc.perform(get("/supervisor"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[2].supervisorName", is("Supervisor3")));
+    }
 
+    @Test
+    void getSupervisorByIdTest() throws Exception {
+        final Long supervisorId = 1L;
+        final SupervisorModel supervisorModel = new SupervisorModel(1L, "Supervisor1");
+
+        when(supervisorService.getSupervisorById(supervisorId)).thenReturn(Optional.of(supervisorModel));
+
+        mockMvc.perform(get("/supervisor/{id}", supervisorId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.supervisorName", is(supervisorModel.getSupervisorName())));
+    }
+
+    @Test
+    void saveSupervisorTest() throws Exception {
+        when(supervisorService.saveSupervisor(any(SupervisorModel.class))).then((invocation) -> invocation.getArgument(0));
+
+        SupervisorModel supervisorModel = new SupervisorModel(null, "Supervisor1");
+
+        mockMvc.perform(post("/supervisor")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(supervisorModel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.supervisorName", is(supervisorModel.getSupervisorName())));
+    }
+
+    @Test
+    void updateSupervisorByIdTest() throws Exception {
+        Long supervisorId = 1L;
+        SupervisorModel supervisorModel = new SupervisorModel(supervisorId, "Supervisor1");
+        when(supervisorService.getSupervisorById(supervisorId)).thenReturn(Optional.of(supervisorModel));
+        when(supervisorService.updateSupervisorById(any(SupervisorModel.class), any(Long.class))).then((invocation) -> invocation.getArgument(0));
+
+        mockMvc.perform(put("/supervisor/{id}", supervisorModel.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(supervisorModel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.supervisorName", is(supervisorModel.getSupervisorName())));
+    }
+
+    @Test
+    void deleteSupervisorByIdTest() throws Exception {
+        Long supervisorId = 1L;
+        SupervisorModel supervisorModel = new SupervisorModel(supervisorId, "Supervisor1");
         when(supervisorService.getSupervisorById(supervisorModel.getId())).thenReturn(Optional.of(supervisorModel));
-        Optional<SupervisorModel> supervisorById = supervisorService.getSupervisorById(1L);
 
-        assertNotNull(supervisorById);
-        assertEquals(supervisorModel.getId(), supervisorById.orElseThrow().getId());
+        mockMvc.perform(delete("/supervisor/{id}", supervisorModel.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
-
-    @Test
-    public void saveSupervisorTest() {
-        SupervisorModel supervisor = new SupervisorModel();
-        supervisor.setSupervisorName("Mario");
-
-        when(supervisorService.saveSupervisor(supervisor)).thenReturn(supervisor);
-        assertEquals(supervisor, supervisorController.saveSupervisor(supervisor));
-    }
-
-    @Test
-    public void updateSupervisorIdTest() {
-        SupervisorModel supervisorModel = new SupervisorModel();
-        supervisorModel.setId(1L);
-        supervisorModel.setSupervisorName("Supervisor 1");
-
-        SupervisorModel supervisorModel2 = new SupervisorModel();
-        supervisorModel.setId(1L);
-        supervisorModel.setSupervisorName("Supervisor 2");
-
-        when(supervisorService.updateSupervisorById(supervisorModel2, supervisorModel.getId())).thenReturn(supervisorModel2);
-        assertEquals(supervisorModel2, supervisorController.updateSupervisorById(supervisorModel2, supervisorModel.getId()));
-    }
-
-    @Test
-    public void deleteSupervisorTest() {
-        SupervisorModel supervisorModel = new SupervisorModel();
-        supervisorModel.setId(1L);
-
-        supervisorService.deleteSupervisor(supervisorModel.getId());
-
-        assertFalse(supervisorService.getSupervisorById(1L).isPresent());
-
-    }
-
 }
