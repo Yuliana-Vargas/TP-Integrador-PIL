@@ -57,8 +57,9 @@ public class BestRoute {
     }
 
     private double getDistance(RecyclingZoneModel recyclingZoneModel, RecyclingZoneModel closestZone) {
-        return Math.sqrt(Math.pow(recyclingZoneModel.getLocation().getCoordinates().getX() - closestZone.getLocation().getCoordinates().getX(), 2) +
-                Math.pow(recyclingZoneModel.getLocation().getCoordinates().getY() - closestZone.getLocation().getCoordinates().getY(), 2));
+        return Math.sqrt(Math.pow(recyclingZoneModel.getLocation().getCoordinates().getX() - closestZone.getLocation()
+                .getCoordinates().getX(), 2) + Math.pow(recyclingZoneModel.getLocation().getCoordinates().getY() -
+                closestZone.getLocation().getCoordinates().getY(), 2));
     }
 
     public String sortedRecyclingZonesString() {
@@ -71,9 +72,14 @@ public class BestRoute {
             return "Only one recycling zone found";
         }
 
-        StringBuilder result = new StringBuilder("Starting from point: (" + startingPoint.getX() + ", " + startingPoint.getY() + ") the best route is:\n");
+        int i = 1;
+        StringBuilder result = new StringBuilder("Starting from point: (" + startingPoint.getX() + ", " +
+                startingPoint.getY() + ") the best route is:\n");
         for (RecyclingZoneModel sortedRecyclingZone : sortedRecyclingZones) {
-            result.append("Zone name: ").append(sortedRecyclingZone.getName()).append(": (").append(sortedRecyclingZone.getLocation().getCoordinates().getX()).append(", ").append(sortedRecyclingZone.getLocation().getCoordinates().getY()).append(")\n");
+            result.append(i).append("° Zone name: ").append(sortedRecyclingZone.getName()).append(", coordinates: (")
+                    .append(sortedRecyclingZone.getLocation().getCoordinates().getX()).append(", ")
+                    .append(sortedRecyclingZone.getLocation().getCoordinates().getY()).append(").\n");
+            i++;
         }
         return result.toString();
     }
