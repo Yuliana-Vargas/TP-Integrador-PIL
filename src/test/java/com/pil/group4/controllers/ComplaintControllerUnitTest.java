@@ -1,92 +1,106 @@
 package com.pil.group4.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pil.group4.models.ComplaintModel;
-import com.pil.group4.models.LocationModel;
-import com.pil.group4.models.RecyclingZoneModel;
+import com.pil.group4.models.ComplaintModel;
 import com.pil.group4.models.TypeOfComplaint;
 import com.pil.group4.services.ComplaintService;
+import com.pil.group4.services.ComplaintService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static com.pil.group4.models.TypeOfComplaint.FOR_VANDALISM;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(controllers = ComplaintController.class)
 public class ComplaintControllerUnitTest {
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @MockBean
     private ComplaintService complaintService;
 
-    @InjectMocks
-    private ComplaintController complaintController;
+    private List<ComplaintModel> complaintList;
 
+    @BeforeEach
+    void setUp(){
+        this.complaintList = new ArrayList<>();
+        this.complaintList.add(new ComplaintModel(1L,TypeOfComplaint.ANOTHER_REASON,"not used"));
+        this.complaintList.add(new ComplaintModel(2L,TypeOfComplaint.FOR_MISUSE,"bad recylcing"));
+        this.complaintList.add(new ComplaintModel(3L, FOR_VANDALISM,"pinted wall"));
+    }
     @Test
-    public void getComplaints(){
-        ArrayList<ComplaintModel> complaints = new ArrayList<>();
-        assertNotNull(complaints);
-        assertTrue(complaints.isEmpty());
+    public void getComplaintsTest() throws Exception{
+        when(complaintService.getComplaints()).thenReturn((ArrayList<ComplaintModel>)complaintList);
 
-        ComplaintModel complaint1 = new ComplaintModel();
-        ComplaintModel complaint2 = new ComplaintModel();
-        ComplaintModel complaint3 = new ComplaintModel();
+        mockMvc.perform(get("/complaint"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$",hasSize(3)))
+                .andExpect(jsonPath("$[2].typeOfComplaint",is(FOR_VANDALISM)))
+                .andExpect(jsonPath("$[1].description",is("bad recylcing")));
+    }
+    @Test
+    public void getComplaintByIdTest() throws Exception{
+        final Long complaintId =1L;
+        final ComplaintModel complaintModel = new ComplaintModel();
 
-        complaint1.setTypeOfComplaint(TypeOfComplaint.ANOTHER_REASON);
-        complaint2.setTypeOfComplaint(TypeOfComplaint.FOR_VANDALISM);
-        complaint3.setTypeOfComplaint(TypeOfComplaint.FOR_MISUSE);
-        complaint1.setDescription("No se usa seguido");
-        complaint2.setDescription("La zona fue destruida");
-        complaint3.setDescription("Tiran electronicos");
-
-        complaints.add(complaint1);
-        complaints.add(complaint2);
-        complaints.add(complaint3);
-
-        assertFalse(complaints.isEmpty());
-        assertEquals(3, complaints.size());
-        when(complaintService.getComplaints()).thenReturn(complaints);
-        assertEquals(complaints, complaintController.getComplaints());
+        when(complaintService.getComplaintById(complaintId)).thenReturn(Optional.of(complaintModel));
+        mockMvc.perform(get("/complaint/{id}", complaintId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.description", is(complaintModel.getDescription())));
     }
 
     @Test
-    public void getComplaintById(){
-        ComplaintModel complaint = new ComplaintModel();
-        complaint.setId(1L);
-        complaint.setTypeOfComplaint(TypeOfComplaint.FOR_MISUSE);
-        complaint.setDescription("Tiran residuos no reciclables");
+    void saveComplainTest() throws Exception {
+        when(complaintService.saveComplaint(any(ComplaintModel.class))).then((invocation) -> invocation.getArgument(0));
 
-        when(complaintService.getComplaintById(complaint.getId())).thenReturn(Optional.of(complaint));
-        Optional<ComplaintModel> complaintById = complaintService.getComplaintById(1L);
-
-        assertNotNull(complaintById);
-        assertEquals(complaint.getId(), complaintById.orElseThrow().getId());
-    }
-    @Test
-    public void deleteComplaintTest() {
         ComplaintModel complaintModel = new ComplaintModel();
-        complaintModel.setId(2L);
 
-        complaintService.deleteOfComplaint(complaintModel.getId());
+        mockMvc.perform(post("/complaint")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(complaintModel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.description", is(complaintModel.getDescription())));
+    }
+    @Test
+    public void deleteComplaintTest() throws Exception{
+        Long complaintId = 1L;
+        ComplaintModel complaintModel = new ComplaintModel();
+        when(complaintService.getComplaintById(complaintId)).thenReturn(Optional.of(complaintModel));
 
-        assertFalse(complaintService.getComplaintById(2L).isPresent());
+        mockMvc.perform(delete("/complaint/{id}",complaintModel.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
     }
     @Test
-    public void updateComplaintIdTest() {
+    void updateComplaintByIdTest() throws Exception {
+        Long complaintId = 1L;
         ComplaintModel complaintModel = new ComplaintModel();
-        complaintModel.setId(1L);
-        complaintModel.setTypeOfComplaint(TypeOfComplaint.ANOTHER_REASON);
-        complaintModel.setDescription("they are recycling badly");
+        when(complaintService.getComplaintById(complaintId)).thenReturn(Optional.of(complaintModel));
+        when(complaintService.updateComplaintById(any(ComplaintModel.class).getId(), any())).then((invocation) -> invocation.getArgument(0));
 
-        ComplaintModel complaintModel1 = new ComplaintModel();
-        complaintModel1.setId(1L);
-        complaintModel1.setTypeOfComplaint(TypeOfComplaint.FOR_MISUSE);
-        complaintModel1.setDescription("they are recycling badly");
-
-        when(complaintController.updateComplaintById(complaintModel1, complaintModel.getId())).thenReturn(complaintModel1);
-        assertEquals(complaintModel1, complaintController.updateComplaintById(complaintModel1, complaintModel.getId()));
+        mockMvc.perform(put("/complaint/{id}", complaintModel.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(complaintModel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.description", is(complaintModel.getDescription())));
     }
 }
