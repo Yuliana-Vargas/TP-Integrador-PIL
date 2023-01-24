@@ -5,8 +5,6 @@ import com.pil.group4.repositories.RecyclingZoneRepository;
 import com.pil.group4.repositories.SupervisorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -51,11 +49,13 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         }
     }
     @Override
-    public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZoneDetails) {
-        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
-        RecyclingZoneModel update = optionalUpdate.get();
-        update.setName(recyclingZoneDetails.getName());
-        return recyclingZoneRepository.save(update);
+    public RecyclingZoneModel updateRecyclingZoneById(RecyclingZoneModel newRecyclingZoneModel, Long id) {
+        return recyclingZoneRepository.findById(id)
+                .map(recZone -> {
+                    recZone.setName(newRecyclingZoneModel.getName());
+                    return recyclingZoneRepository.save(recZone);
+                })
+                .orElseGet(() -> recyclingZoneRepository.save(newRecyclingZoneModel));
     }
 
     public String addSupervisor(Long id, Long idSupervisor) {

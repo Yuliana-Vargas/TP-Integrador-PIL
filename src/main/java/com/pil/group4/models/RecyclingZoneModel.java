@@ -14,6 +14,29 @@ public class RecyclingZoneModel {
     @Column
     private String name;
 
+    public RecyclingZoneModel(){
+
+    }
+
+    public RecyclingZoneModel(Long id, String name, OccupationCapacity occupationCapacity, StateOfTheZone stateOfTheZone, ClassificationType classificationType, boolean needsReclassification, SupervisorModel supervisor) {
+        this.id = id;
+        this.name = name;
+        this.occupationCapacity = occupationCapacity;
+        this.stateOfTheZone = stateOfTheZone;
+        this.classificationType = classificationType;
+        this.needsReclassification = needsReclassification;
+        this.supervisor = supervisor;
+    }
+
+    public RecyclingZoneModel(Long id, String name, OccupationCapacity occupationCapacity, StateOfTheZone stateOfTheZone, ClassificationType classificationType, boolean needsReclassification) {
+        this.id = id;
+        this.name = name;
+        this.occupationCapacity = occupationCapacity;
+        this.stateOfTheZone = stateOfTheZone;
+        this.classificationType = classificationType;
+        this.needsReclassification = needsReclassification;
+    }
+
     @Column
     private OccupationCapacity occupationCapacity;
 

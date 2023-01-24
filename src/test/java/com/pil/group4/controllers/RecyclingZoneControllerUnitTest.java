@@ -1,102 +1,125 @@
 package com.pil.group4.controllers;
 
-import com.pil.group4.models.RecyclingZoneModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pil.group4.models.*;
 import com.pil.group4.services.RecyclingZoneService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static com.pil.group4.models.ClassificationType.*;
+import static com.pil.group4.models.OccupationCapacity.*;
+import static com.pil.group4.models.StateOfTheZone.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(controllers = RecyclingZoneController.class)
 public class RecyclingZoneControllerUnitTest {
 
+    @Autowired
+    private MockMvc mockMvc;
 
-    @Mock
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockBean
     private RecyclingZoneService recyclingZoneService;
 
-    @InjectMocks
-    private RecyclingZoneController recyclingZoneController;
+    private List<RecyclingZoneModel> recyclingZoneList;
 
-    @Test
-    public void getRecyclingZonesTest() {
-        ArrayList<RecyclingZoneModel> recyclingZones = new ArrayList<>();
-
-        RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
-        RecyclingZoneModel recyclingZone2 = new RecyclingZoneModel();
-        RecyclingZoneModel recyclingZone3 = new RecyclingZoneModel();
-
-        recyclingZone.setName("Recycling Zone 1");
-        recyclingZone2.setName("Recycling Zone 2");
-        recyclingZone3.setName("Recycling Zone 3");
-        recyclingZone.setNeedsReclassification(false);
-        recyclingZone2.setNeedsReclassification(true);
-        recyclingZone3.setNeedsReclassification(false);
-
-
-        recyclingZones.add(recyclingZone);
-        recyclingZones.add(recyclingZone2);
-        recyclingZones.add(recyclingZone3);
-
-        when(recyclingZoneService.getRecyclingZones()).thenReturn(recyclingZones);
-        assertEquals(recyclingZones, recyclingZoneController.getRecyclingZones());
+    @BeforeEach
+    void setUp() {
+        this.recyclingZoneList = new ArrayList<>();
+        this.recyclingZoneList.add(new RecyclingZoneModel(1L, "RecZone1", FULL, INACCESSIBLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false));
+        this.recyclingZoneList.add(new RecyclingZoneModel(2L, "RecZone2", EMPTY, AVAILABLE, BATTERY_DISPOSAL,false));
+        this.recyclingZoneList.add(new RecyclingZoneModel(3L, "RecZone3", EXCEEDED, DAMAGED, GLASS_DISPOSAL,true));
     }
 
     @Test
-    public void getRecyclingZoneByIdTest() {
-        RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
-        recyclingZone.setId(1L);
-        recyclingZone.setName("Recycling Zone 1");
-        recyclingZone.setNeedsReclassification(false);
+    void getRecyclingZonesTest() throws Exception {
+        when(recyclingZoneService.getRecyclingZones()).thenReturn(recyclingZoneList);
 
-        when(recyclingZoneService.getRecyclingZoneById(recyclingZone.getId())).thenReturn(Optional.of(recyclingZone));
-        Optional<RecyclingZoneModel> recyclingZoneById = recyclingZoneService.getRecyclingZoneById(1L);
-
-        assertNotNull(recyclingZoneById);
-        assertEquals(recyclingZone.getId(), recyclingZoneById.orElseThrow().getId());
+        mockMvc.perform(get("/recycling-zone"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[2].name", is("RecZone3")));
     }
 
     @Test
-    public void saveRecyclingZoneTest() {
-        RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
-        recyclingZone.setName("Recycling Zone 1");
-        recyclingZone.setNeedsReclassification(false);
+    void getRecyclingZoneByIdTest() throws Exception {
+        final Long recZone1 = 1L;
+        final RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(1L, "RecZone1",FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
 
-        when(recyclingZoneService.saveRecyclingZone(recyclingZone)).thenReturn(recyclingZone);
-        assertEquals(recyclingZone, recyclingZoneController.saveRecyclingZone(recyclingZone));
+        when(recyclingZoneService.getRecyclingZoneById(recZone1)).thenReturn(Optional.of(recyclingZoneModel));
+
+        mockMvc.perform(get("/recycling-zone/{id}", recZone1))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is(recyclingZoneModel.getName())));
     }
 
     @Test
-    public void updateRecyclingZoneByIdTest() {
-        RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
-        recyclingZone.setId(1L);
-        recyclingZone.setName("Recycling Zone 1");
-        recyclingZone.setNeedsReclassification(false);
+    void saveRecyclingZoneTest() throws Exception {
+        when(recyclingZoneService.saveRecyclingZone(any(RecyclingZoneModel.class))).then((invocation) -> invocation.getArgument(0));
 
-        RecyclingZoneModel recyclingZone2 = new RecyclingZoneModel();
-        recyclingZone2.setId(1L);
-        recyclingZone2.setName("Recycling Zone 2");
-        recyclingZone2.setNeedsReclassification(false);
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(null, "RecZone1",FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
 
-        when(recyclingZoneService.updateRecyclingZoneById(recyclingZone.getId(), recyclingZone2)).thenReturn(recyclingZone2);
-        assertEquals(recyclingZone2, recyclingZoneController.updateRecyclingZoneById(recyclingZone.getId(), recyclingZone2));
+        mockMvc.perform(post("/recycling-zone")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(recyclingZoneModel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(recyclingZoneModel.getName())));
+    }
+    @Test
+    void updateRecyclingZoneTest() throws Exception {
+        Long recZone1 = 1L;
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(recZone1, "RecZone1",FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
+        when(recyclingZoneService.getRecyclingZoneById(recZone1)).thenReturn(Optional.of(recyclingZoneModel));
+        when(recyclingZoneService.updateRecyclingZoneById(any(RecyclingZoneModel.class), any(Long.class))).then((invocation) -> invocation.getArgument(0));
+
+        mockMvc.perform(put("/recycling-zone/{id}", recyclingZoneModel.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(recyclingZoneModel)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(recyclingZoneModel.getName())));
     }
 
     @Test
-    public void deleteRecyclingZoneTest() {
-        RecyclingZoneModel recyclingZone = new RecyclingZoneModel();
-        recyclingZone.setId(2L);
+    void deleteRecyclingZoneByIdTest() throws Exception {
+        Long recZone1 = 1L;
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(recZone1, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
+        when(recyclingZoneService.getRecyclingZoneById(recyclingZoneModel.getId())).thenReturn(Optional.of(recyclingZoneModel));
 
-        recyclingZoneService.deleteOfRecyclingZone(recyclingZone.getId());
+        mockMvc.perform(delete("/recycling-zone/{id}", recyclingZoneModel.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
-        assertFalse(recyclingZoneService.getRecyclingZoneById(2L).isPresent());
+    @Test
+    void getRecyclingZoneBySupervisorTest() throws Exception{
+        Long recZone1 = 1L;
+        SupervisorModel supervisorModel = new SupervisorModel(1L,"Juan");
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(1L, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false, supervisorModel);
+        when(recyclingZoneService.getRecyclingZoneBySupervisor(recZone1)).thenReturn(Optional.of(recyclingZoneModel));
 
+        mockMvc.perform(get("/recycling-zone/supervisor/{id}", recZone1))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.name", is(recyclingZoneModel.getName())));
     }
 
 }
