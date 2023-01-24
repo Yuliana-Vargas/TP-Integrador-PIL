@@ -48,7 +48,7 @@ public class RecyclingZoneController {
 
     @PutMapping("/{id}")
     public RecyclingZoneModel updateRecyclingZoneById(@PathVariable("id") Long id, @RequestBody RecyclingZoneModel recyclingZone) {
-        return this.recyclingZoneService.updateRecyclingZoneById(id, recyclingZone);
+        return this.recyclingZoneService.updateRecyclingZoneById(recyclingZone, id);
     }
 
     @DeleteMapping(path = "/{id}")
