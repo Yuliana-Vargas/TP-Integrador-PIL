@@ -16,6 +16,11 @@ public class SupervisorModel {
     public SupervisorModel() {
     }
 
+    public SupervisorModel(Long id, String supervisorName) {
+        this.id = id;
+        this.supervisorName = supervisorName;
+    }
+
     public Long getId() {
         return id;
     }

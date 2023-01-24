@@ -177,7 +177,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
             optionalRecyclingZone.ifPresent(recyclingZones::add);
         }
 
-        Route.BestRoute bestRoute = new Route.BestRoute(startingPoint, recyclingZones);
+        BestRoute bestRoute = new BestRoute(startingPoint, recyclingZones);
         bestRoute.setShortestRoute();
         return bestRoute.sortedRecyclingZonesString();
     }
@@ -194,3 +194,4 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         return Optional.of(recyclingZoneRepository.save(update));
     }
 }
+
