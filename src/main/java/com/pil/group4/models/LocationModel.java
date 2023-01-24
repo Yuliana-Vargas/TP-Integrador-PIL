@@ -28,6 +28,17 @@ public class LocationModel {
     @Column
     private Point coordinates;
 
+    public LocationModel() {
+    }
+
+    public LocationModel(String department, String neighborhood, String address, int number, Point coordinates) {
+        this.department = department;
+        this.neighborhood = neighborhood;
+        this.address = address;
+        this.number = number;
+        this.coordinates = coordinates;
+    }
+
     public Long getId() {
         return id;
     }
