@@ -1,6 +1,7 @@
 package com.pil.group4.services;
 
 import com.pil.group4.models.*;
+import com.pil.group4.repositories.ComplaintRepository;
 import com.pil.group4.repositories.RecyclingZoneRepository;
 import com.pil.group4.repositories.SupervisorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,13 @@ public class RecyclingZoneService implements IRecyclingZoneService {
 
     private final SupervisorRepository supervisorRepository;
 
+    private final ComplaintRepository complaintRepository;
+
     @Autowired
-    public RecyclingZoneService(RecyclingZoneRepository recyclingZoneRepository, SupervisorRepository supervisorRepository) {
+    public RecyclingZoneService(RecyclingZoneRepository recyclingZoneRepository, SupervisorRepository supervisorRepository, ComplaintRepository complaintRepository) {
         this.recyclingZoneRepository = recyclingZoneRepository;
         this.supervisorRepository = supervisorRepository;
+        this.complaintRepository = complaintRepository;
     }
 
     @Override
@@ -181,7 +185,81 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         bestRoute.setShortestRoute();
         return bestRoute.sortedRecyclingZonesString();
     }
-    
+
+    @Override
+    public String addComplaint(Long id, Long idComplaint) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<ComplaintModel> optionalComplaint = complaintRepository.findById(id);
+
+        if (optionalUpdate.isEmpty() || optionalComplaint.isEmpty()) {
+            return "Complaint with id " + idComplaint + " or recycling zone with id " + id + " not found";
+        }
+
+        RecyclingZoneModel update = optionalUpdate.get();
+        ComplaintModel complaint = optionalComplaint.get();
+        if (update.getComplaints() == null) {
+            update.setComplaints(new ArrayList<>());
+        }
+        update.getComplaints().add(complaint);
+        recyclingZoneRepository.save(update);
+        return "Complaint with id " + idComplaint + " added to recycling zone with id " + id;
+    }
+
+    @Override
+    public String deleteComplaint(Long id, Long idComplaint) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<ComplaintModel> optionalComplaint = complaintRepository.findById(id);
+
+        if (optionalUpdate.isEmpty() || optionalComplaint.isEmpty()) {
+            return "Complaint with id " + idComplaint + " or recycling zone with id " + id + " not found";
+        }
+
+        RecyclingZoneModel update = optionalUpdate.get();
+        ComplaintModel complaint = optionalComplaint.get();
+
+        if (update.getComplaints() == null) {
+            return "Complaint with id " + idComplaint + " not found in recycling zone with id " + id;
+        }
+
+        update.getComplaints().remove(complaint);
+        recyclingZoneRepository.save(update);
+        return "Complaint with id " + idComplaint + " deleted from recycling zone with id " + id;
+    }
+
+    @Override
+    public String cleanComplaints(Long id) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+
+        if (optionalUpdate.isEmpty()) {
+            return "Recycling zone with id " + id + " not found";
+        }
+
+        RecyclingZoneModel update = optionalUpdate.get();
+
+        if (update.getComplaints() == null) {
+            return "Recycling zone with id " + id + " has no complaints";
+        }
+
+        update.setComplaints(new ArrayList<>());
+        recyclingZoneRepository.save(update);
+        return "Complaints deleted from recycling zone with id " + id;
+    }
+
+    @Override
+    public List<ComplaintModel> getRecyclingZoneComplaints(Long id) {
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        if (optionalUpdate.isEmpty()) {
+            return new ArrayList<>();
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+
+        if (update.getComplaints() == null) {
+            return new ArrayList<>();
+        }
+
+        return (List<ComplaintModel>) update.getComplaints();
+    }
+
     public Optional<RecyclingZoneModel> changeOccupationCapacity(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
         Optional<SupervisorModel> optionalSupervisor = supervisorRepository.findById(SupervisorId);

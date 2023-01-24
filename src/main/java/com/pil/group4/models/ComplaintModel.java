@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Table(name = "complaint")
 public class ComplaintModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comp_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "com_id", nullable = false)
     private Long id;
 
     @Column
