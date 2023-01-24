@@ -15,6 +15,7 @@ public class ComplaintModel {
 
     public ComplaintModel() {
     }
+    
     @Column
     private String description;
 
