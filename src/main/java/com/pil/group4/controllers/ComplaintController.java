@@ -26,7 +26,7 @@ public class ComplaintController {
 
     @GetMapping("/{id}")
     public Optional<ComplaintModel> getComplaintById(@PathVariable("id") Long complaintId){
-        return complaintService.getComplaintById(complaintId);
+        return this.complaintService.getComplaintById(complaintId);
     }
 
     @PostMapping
