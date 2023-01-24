@@ -1,6 +1,7 @@
 package com.pil.group4.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -133,18 +134,6 @@ public class RecyclingZoneModel {
 
     public void setComplaints(List<ComplaintModel> complaints) {
         this.complaints = complaints;
-    }
-
-    public void  addComplaint(ComplaintModel complaint){
-        this.complaints.add(complaint);
-    }
-
-    public void removeComplaint(ComplaintModel complaint){
-        this.complaints.remove(complaint);
-    }
-
-    public void clearComplaints(){
-        this.complaints.clear();
     }
 
 }

@@ -187,43 +187,20 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     }
 
     @Override
-    public String addComplaint(Long id, Long idComplaint) {
+    public String addComplaint(Long id, ComplaintModel complaint) {
         Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
-        Optional<ComplaintModel> optionalComplaint = complaintRepository.findById(id);
-
-        if (optionalUpdate.isEmpty() || optionalComplaint.isEmpty()) {
-            return "Complaint with id " + idComplaint + " or recycling zone with id " + id + " not found";
+        if (optionalUpdate.isEmpty()) {
+            return "Recycling zone with id " + id + " not found";
         }
-
         RecyclingZoneModel update = optionalUpdate.get();
-        ComplaintModel complaint = optionalComplaint.get();
-        if (update.getComplaints() == null) {
-            update.setComplaints(new ArrayList<>());
-        }
         update.getComplaints().add(complaint);
         recyclingZoneRepository.save(update);
-        return "Complaint with id " + idComplaint + " added to recycling zone with id " + id;
+        return "Complaint added to recycling zone with id " + id;
     }
 
     @Override
     public String deleteComplaint(Long id, Long idComplaint) {
-        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
-        Optional<ComplaintModel> optionalComplaint = complaintRepository.findById(id);
-
-        if (optionalUpdate.isEmpty() || optionalComplaint.isEmpty()) {
-            return "Complaint with id " + idComplaint + " or recycling zone with id " + id + " not found";
-        }
-
-        RecyclingZoneModel update = optionalUpdate.get();
-        ComplaintModel complaint = optionalComplaint.get();
-
-        if (update.getComplaints() == null) {
-            return "Complaint with id " + idComplaint + " not found in recycling zone with id " + id;
-        }
-
-        update.getComplaints().remove(complaint);
-        recyclingZoneRepository.save(update);
-        return "Complaint with id " + idComplaint + " deleted from recycling zone with id " + id;
+        return null;
     }
 
     @Override
@@ -271,5 +248,6 @@ public class RecyclingZoneService implements IRecyclingZoneService {
         update.setOccupationCapacity(recyclingZone.getOccupationCapacity());
         return Optional.of(recyclingZoneRepository.save(update));
     }
+
 }
 

@@ -41,7 +41,7 @@ public interface IRecyclingZoneService {
 
     String shortestRoute(List<Integer> idsRecZone, Point startingPoint);
 
-    String addComplaint(Long id, Long idComplaint);
+    String addComplaint(Long id, ComplaintModel complaintModel);
 
     String deleteComplaint(Long id, Long idComplaint);
 

@@ -114,9 +114,9 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.changeOccupationCapacity(id, idSupervisor, recyclingZone);
     }
 
-    @PutMapping("/{id}/complaint/{idComplaint}")
-    public String addComplaint(@PathVariable("id") Long id, @PathVariable("idComplaint") Long idComplaint) {
-        return this.recyclingZoneService.addComplaint(id, idComplaint);
+    @PutMapping("/{id}/complaint")
+    public String addComplaint(@PathVariable("id") Long id, @RequestBody ComplaintModel complaint) {
+        return this.recyclingZoneService.addComplaint(id, complaint);
     }
 
     @DeleteMapping("/{id}/complaint/{idComplaint}")
@@ -124,9 +124,14 @@ public class RecyclingZoneController {
         return this.recyclingZoneService.deleteComplaint(id, idComplaint);
     }
 
-    @GetMapping("{id}/complaint/")
+    @DeleteMapping("/{id}/complaint")
+    public String deleteAllComplaints(@PathVariable("id") Long id) {
+        return this.recyclingZoneService.cleanComplaints(id);
+    }
+
+    @GetMapping("{id}/complaint")
     public List<ComplaintModel> getRecyclingZoneComplaints(@PathVariable("id") Long id) {
         return this.recyclingZoneService.getRecyclingZoneComplaints(id);
     }
-    
+
 }
