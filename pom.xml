@@ -80,17 +80,6 @@
             <version>1.6.4</version>
         </dependency>
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-webflux-ui</artifactId>
-            <version>1.6.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pil</groupId>
-            <artifactId>TP-Integrador-PIL</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.shiftleft</groupId>
             <artifactId>console</artifactId>
             <version>0.10.25</version>
