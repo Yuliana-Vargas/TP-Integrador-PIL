@@ -11,7 +11,6 @@ import java.util.Optional;
 @Service
 public class ComplaintService implements IComplaintService {
 
-
     private final ComplaintRepository complaintRepository;
 
     @Autowired
