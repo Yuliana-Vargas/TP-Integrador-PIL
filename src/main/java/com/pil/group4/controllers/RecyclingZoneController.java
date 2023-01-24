@@ -1,9 +1,6 @@
 package com.pil.group4.controllers;
 
-import com.pil.group4.models.ClassificationType;
-import com.pil.group4.models.OccupationCapacity;
-import com.pil.group4.models.RecyclingZoneModel;
-import com.pil.group4.models.StateOfTheZone;
+import com.pil.group4.models.*;
 import com.pil.group4.services.IRecyclingZoneService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -116,4 +113,25 @@ public class RecyclingZoneController {
     public Optional<RecyclingZoneModel> changeOccupationCapacity(@PathVariable("id") Long id, @PathVariable("idSupervisor") Long idSupervisor, @RequestBody RecyclingZoneModel recyclingZone){
         return this.recyclingZoneService.changeOccupationCapacity(id, idSupervisor, recyclingZone);
     }
+
+    @PutMapping("/{id}/complaint")
+    public String addComplaint(@PathVariable("id") Long id, @RequestBody ComplaintModel complaint) {
+        return this.recyclingZoneService.addComplaint(id, complaint);
+    }
+
+    @DeleteMapping("/{id}/complaint/{idComplaint}")
+    public String deleteComplaint(@PathVariable("id") Long id, @PathVariable("idComplaint") Long idComplaint) {
+        return this.recyclingZoneService.deleteComplaint(id, idComplaint);
+    }
+
+    @DeleteMapping("/{id}/complaint")
+    public String deleteAllComplaints(@PathVariable("id") Long id) {
+        return this.recyclingZoneService.cleanComplaints(id);
+    }
+
+    @GetMapping("{id}/complaint")
+    public List<ComplaintModel> getRecyclingZoneComplaints(@PathVariable("id") Long id) {
+        return this.recyclingZoneService.getRecyclingZoneComplaints(id);
+    }
+
 }

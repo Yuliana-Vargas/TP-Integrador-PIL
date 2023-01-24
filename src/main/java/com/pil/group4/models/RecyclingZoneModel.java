@@ -1,6 +1,9 @@
 package com.pil.group4.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "recycling_zone")
@@ -56,6 +59,10 @@ public class RecyclingZoneModel {
     @JoinColumn(name = "fk_loc_id", referencedColumnName = "loc_id")
     @OneToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LocationModel location;
+
+    @OneToMany(cascade  = CascadeType.ALL)
+    @JoinColumn(name = "fk_com_id", referencedColumnName = "rec_id")
+    private List<ComplaintModel> complaints;
 
     public Long getId() {
         return id;
@@ -119,6 +126,14 @@ public class RecyclingZoneModel {
 
     public void setLocation(LocationModel location) {
         this.location = location;
+    }
+
+    public Collection<ComplaintModel> getComplaints() {
+        return complaints;
+    }
+
+    public void setComplaints(List<ComplaintModel> complaints) {
+        this.complaints = complaints;
     }
 
 }

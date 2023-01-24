@@ -1,9 +1,6 @@
 package com.pil.group4.services;
 
-import com.pil.group4.models.ClassificationType;
-import com.pil.group4.models.OccupationCapacity;
-import com.pil.group4.models.RecyclingZoneModel;
-import com.pil.group4.models.StateOfTheZone;
+import com.pil.group4.models.*;
 
 import java.awt.*;
 import java.util.List;
@@ -43,4 +40,13 @@ public interface IRecyclingZoneService {
     List<RecyclingZoneModel> findRecyclingZoneByStateOfTheZone(StateOfTheZone stateOfTheZone);
 
     String shortestRoute(List<Integer> idsRecZone, Point startingPoint);
+
+    String addComplaint(Long id, ComplaintModel complaintModel);
+
+    String deleteComplaint(Long id, Long idComplaint);
+
+    String cleanComplaints(Long id);
+
+    List<ComplaintModel> getRecyclingZoneComplaints(Long id);
+
 }
