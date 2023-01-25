@@ -79,11 +79,6 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.4</version>
         </dependency>
-        <dependency>
-            <groupId>io.shiftleft</groupId>
-            <artifactId>console</artifactId>
-            <version>0.10.25</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
