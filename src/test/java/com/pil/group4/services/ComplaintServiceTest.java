@@ -1,6 +1,7 @@
 package com.pil.group4.services;
 import com.pil.group4.models.ComplaintModel;
 
+import com.pil.group4.models.TypeOfComplaint;
 import com.pil.group4.repositories.ComplaintRepository;
 
 import org.junit.jupiter.api.Test;
@@ -31,9 +32,9 @@ class ComplaintServiceTest {
     void getComplaintTest() {
         List<ComplaintModel> complaints = new ArrayList<>();
         assertTrue(complaints.isEmpty());
-        complaints.add(new ComplaintModel());
-        complaints.add(new ComplaintModel());
-        complaints.add(new ComplaintModel());
+        complaints.add(new ComplaintModel(1L, TypeOfComplaint.FOR_VANDALISM,"bad recycling"));
+        complaints.add(new ComplaintModel(2L, TypeOfComplaint.FOR_MISUSE,"bad recycling"));
+        complaints.add(new ComplaintModel(3L, TypeOfComplaint.ANOTHER_REASON,"bad used"));
 
         assertFalse(complaints.isEmpty());
         when(complaintRepository.findAll()).thenReturn(complaints);
@@ -42,7 +43,7 @@ class ComplaintServiceTest {
 
     @Test
     void saveComplaintTest() {
-        ComplaintModel complaintModel = new ComplaintModel();
+        ComplaintModel complaintModel = new ComplaintModel(1L, TypeOfComplaint.FOR_VANDALISM,"bad recycling");
         when(complaintRepository.save(complaintModel)).then(invocation -> invocation.getArgument(0));
 
         ComplaintModel savedComplaint = complaintService.saveComplaint(complaintModel);
@@ -53,22 +54,22 @@ class ComplaintServiceTest {
     @Test
     void getComplaintByIdTest() {
         Long complaintId = 1L;
-        ComplaintModel complaintModel = new ComplaintModel();
+        ComplaintModel complaintModel = new ComplaintModel(1L, TypeOfComplaint.FOR_VANDALISM,"bad recycling");
 
         when(complaintRepository.findById(complaintId)).thenReturn(Optional.of(complaintModel));
 
         Optional<ComplaintModel> complaintExpected = complaintService.getComplaintById(complaintId);
         assertThat(complaintExpected).isNotNull();
         assertTrue(complaintExpected.isPresent());
-        assertEquals("Complaint",complaintExpected.get().getTypeOfComplaint());
+        assertEquals("bad recycling",complaintExpected.get().getDescription());
         verify(complaintRepository).findById(any(Long.class));
     }
 
     @Test
     void updateComplaintByIdTest() {
-        ComplaintModel complaintModel = new ComplaintModel();
+        ComplaintModel complaintModel = new ComplaintModel(1L, TypeOfComplaint.FOR_VANDALISM,"bad recycling");
         when(complaintRepository.save(complaintModel)).thenReturn(complaintModel);
-        ComplaintModel complaintExpected = complaintService.updateComplaintById(complaintModel.getId(), complaintModel);
+        ComplaintModel complaintExpected = complaintService.updateComplaintById(complaintModel,complaintModel.getId());
         assertThat(complaintExpected).isNotNull();
         verify(complaintRepository).save(any(ComplaintModel.class));
     }

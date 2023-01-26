@@ -39,8 +39,8 @@ public class ComplaintController {
     }
 
     @PutMapping("/{id}")
-    public ComplaintModel updateComplaintById(@RequestBody ComplaintModel complaintModel, @PathVariable Long id) {
-        return complaintService.updateComplaintById(id, complaintModel);
+    public ComplaintModel updateComplaintById(@PathVariable("id") Long id, @RequestBody ComplaintModel complaintModel) {
+        return complaintService.updateComplaintById(complaintModel,id);
     }
 
 }

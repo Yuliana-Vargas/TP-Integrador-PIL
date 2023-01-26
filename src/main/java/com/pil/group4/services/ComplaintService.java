@@ -43,7 +43,7 @@ public class ComplaintService implements IComplaintService {
         }
     }
     @Override
-    public ComplaintModel updateComplaintById(Long idComplaint, ComplaintModel complaintModel) {
+    public ComplaintModel updateComplaintById(ComplaintModel complaintModel,Long idComplaint) {
         return complaintRepository.findById(idComplaint)
                 .map(supervisor -> {
                     supervisor.setTypeOfComplaint(complaintModel.getTypeOfComplaint());
