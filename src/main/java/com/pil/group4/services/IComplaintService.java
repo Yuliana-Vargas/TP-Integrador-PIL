@@ -15,5 +15,5 @@ public interface IComplaintService {
 
     String deleteOfComplaint(Long idComplaint);
 
-    ComplaintModel updateComplaintById(Long idComplaint, ComplaintModel complaintModel);
+    ComplaintModel updateComplaintById(ComplaintModel complaintModel,Long idComplaint);
 }

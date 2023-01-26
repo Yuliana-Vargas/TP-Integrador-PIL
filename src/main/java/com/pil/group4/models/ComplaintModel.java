@@ -10,6 +10,15 @@ public class ComplaintModel {
     @Column(name = "com_id", nullable = false)
     private Long id;
 
+    public ComplaintModel() {
+    }
+
+    public ComplaintModel(Long id, TypeOfComplaint typeOfComplaint, String description) {
+        this.id = id;
+        this.typeOfComplaint = typeOfComplaint;
+        this.description = description;
+    }
+
     @Column
     private TypeOfComplaint typeOfComplaint;
 
