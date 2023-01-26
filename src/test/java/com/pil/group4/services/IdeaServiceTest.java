@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -30,9 +29,9 @@ public class IdeaServiceTest {
     void getIdeasTest() {
         List<IdeaModel> ideas = new ArrayList<>();
         assertTrue(ideas.isEmpty());
-        ideas.add(new IdeaModel(1L, "Idea 1","glass"));
-        ideas.add(new IdeaModel(2L, "Idea 2","paper"));
-        ideas.add(new IdeaModel(3L, "Idea 3","botle"));
+        ideas.add(new IdeaModel(1L, "Idea 1", "glass"));
+        ideas.add(new IdeaModel(2L, "Idea 2", "paper"));
+        ideas.add(new IdeaModel(3L, "Idea 3", "botle"));
 
         assertFalse(ideas.isEmpty());
         when(ideaRepository.findAll()).thenReturn(ideas);
@@ -41,7 +40,7 @@ public class IdeaServiceTest {
 
     @Test
     void saveIdeaTest() {
-        IdeaModel ideaModel = new IdeaModel(1L, "Idea 1","glass");
+        IdeaModel ideaModel = new IdeaModel(1L, "Idea 1", "glass");
         when(ideaRepository.save(ideaModel)).then(invocation -> invocation.getArgument(0));
 
         IdeaModel savedIdea = ideaService.saveIdea(ideaModel);
@@ -52,22 +51,22 @@ public class IdeaServiceTest {
     @Test
     void getIdeaByIdTest() {
         Long ideaId = 1L;
-        IdeaModel ideaModel = new IdeaModel(1L, "Idea 1","glass");
+        IdeaModel ideaModel = new IdeaModel(1L, "Idea 1", "glass");
 
         when(ideaRepository.findById(ideaId)).thenReturn(Optional.of(ideaModel));
 
         Optional<IdeaModel> ideaExpected = ideaService.getIdeaById(ideaId);
         assertThat(ideaExpected).isNotNull();
         assertTrue(ideaExpected.isPresent());
-        assertEquals("Idea 1",ideaExpected.get().getIdeaName());
+        assertEquals("Idea 1", ideaExpected.get().getIdeaName());
         verify(ideaRepository).findById(any(Long.class));
     }
 
     @Test
     void updateIdeaByIdTest() {
-        IdeaModel ideaModel = new IdeaModel(1L, "Idea 1","glass");
+        IdeaModel ideaModel = new IdeaModel(1L, "Idea 1", "glass");
         when(ideaRepository.save(ideaModel)).thenReturn(ideaModel);
-        IdeaModel ideaExpected = ideaService.updateIdeaById(ideaModel,ideaModel.getId());
+        IdeaModel ideaExpected = ideaService.updateIdeaById(ideaModel, ideaModel.getId());
         assertThat(ideaExpected).isNotNull();
         verify(ideaRepository).save(any(IdeaModel.class));
     }

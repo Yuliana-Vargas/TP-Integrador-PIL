@@ -19,7 +19,7 @@ public class IdeaModel {
     public IdeaModel() {
     }
 
-    public IdeaModel(Long id, String ideaName,String description) {
+    public IdeaModel(Long id, String ideaName, String description) {
         this.id = id;
         this.ideaName = ideaName;
         this.description = description;
@@ -32,6 +32,7 @@ public class IdeaModel {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getIdeaName() {
         return ideaName;
     }
@@ -40,7 +41,11 @@ public class IdeaModel {
         this.ideaName = ideaName;
     }
 
-    public String getDescription(){ return description; }
+    public String getDescription() {
+        return description;
+    }
 
-    public void setDescription(String description){ this.description = description;}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

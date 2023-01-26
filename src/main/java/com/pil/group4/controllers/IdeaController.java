@@ -34,8 +34,8 @@ public class IdeaController {
     }
 
     @PutMapping("/{id}")
-    public IdeaModel updateIdeaById( @PathVariable ("id") Long id, @RequestBody IdeaModel newIdeaModel) {
-        return ideaService.updateIdeaById(newIdeaModel,id);
+    public IdeaModel updateIdeaById(@PathVariable("id") Long id, @RequestBody IdeaModel newIdeaModel) {
+        return ideaService.updateIdeaById(newIdeaModel, id);
     }
 
     @DeleteMapping(path = "/{id}")

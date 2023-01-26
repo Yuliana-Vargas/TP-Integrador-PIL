@@ -25,7 +25,7 @@ public class ComplaintController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ComplaintModel> getComplaintById(@PathVariable("id") Long complaintId){
+    public Optional<ComplaintModel> getComplaintById(@PathVariable("id") Long complaintId) {
         return complaintService.getComplaintById(complaintId);
     }
 
@@ -33,6 +33,7 @@ public class ComplaintController {
     public ComplaintModel saveComplaint(@RequestBody ComplaintModel complaintModel) {
         return complaintService.saveComplaint(complaintModel);
     }
+
     @DeleteMapping(path = "/{id}")
     public String deleteComplaintById(@PathVariable("id") Long id) {
         return this.complaintService.deleteOfComplaint(id);
@@ -40,7 +41,7 @@ public class ComplaintController {
 
     @PutMapping("/{id}")
     public ComplaintModel updateComplaintById(@PathVariable("id") Long id, @RequestBody ComplaintModel complaintModel) {
-        return complaintService.updateComplaintById(complaintModel,id);
+        return complaintService.updateComplaintById(complaintModel, id);
     }
 
 }

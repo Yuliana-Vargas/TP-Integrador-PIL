@@ -20,7 +20,7 @@ public class ComplaintService implements IComplaintService {
     }
 
     @Override
-    public Optional<ComplaintModel> getComplaintById(Long complaintId){
+    public Optional<ComplaintModel> getComplaintById(Long complaintId) {
         return complaintRepository.findById(complaintId);
     }
 
@@ -35,16 +35,17 @@ public class ComplaintService implements IComplaintService {
     }
 
     @Override
-    public String deleteOfComplaint(Long id){
-        try{
+    public String deleteOfComplaint(Long id) {
+        try {
             complaintRepository.deleteById(id);
             return "The Complaint with id: " + id + ", was removed";
-        } catch (Exception e){
+        } catch (Exception e) {
             return "The Complaint with id: " + id + ", wasn't removed";
         }
     }
+
     @Override
-    public ComplaintModel updateComplaintById(ComplaintModel complaintModel,Long idComplaint) {
+    public ComplaintModel updateComplaintById(ComplaintModel complaintModel, Long idComplaint) {
         return complaintRepository.findById(idComplaint)
                 .map(supervisor -> {
                     supervisor.setTypeOfComplaint(complaintModel.getTypeOfComplaint());

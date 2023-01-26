@@ -43,16 +43,17 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     public RecyclingZoneModel saveRecyclingZone(RecyclingZoneModel recyclingZoneModel) {
         return recyclingZoneRepository.save(recyclingZoneModel);
     }
-    
+
     @Override
-    public String deleteOfRecyclingZone(Long id){
-        try{
+    public String deleteOfRecyclingZone(Long id) {
+        try {
             recyclingZoneRepository.deleteById(id);
             return "The Recycling Zone with id: " + id + ", was removed";
-        } catch (Exception e){
+        } catch (Exception e) {
             return "The Recycling Zone with id: " + id + ", wasn't removed";
         }
     }
+
     @Override
     public RecyclingZoneModel updateRecyclingZoneById(RecyclingZoneModel newRecyclingZoneModel, Long id) {
         return recyclingZoneRepository.findById(id)
@@ -85,7 +86,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
             return "Supervisor with id " + idSupervisor + " or recycling zone with id " + id + " not found";
         }
         RecyclingZoneModel update = optionalUpdate.get();
-        if ((update.getSupervisor() != null) && Objects.equals(update.getSupervisor().getId(), idSupervisor)){
+        if ((update.getSupervisor() != null) && Objects.equals(update.getSupervisor().getId(), idSupervisor)) {
             update.setSupervisor(null);
             recyclingZoneRepository.save(update);
             return "Supervisor with id " + idSupervisor + " deleted from recycling zone with id " + id;
@@ -97,7 +98,7 @@ public class RecyclingZoneService implements IRecyclingZoneService {
     public Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor) {
         List<RecyclingZoneModel> recyclingZones = recyclingZoneRepository.findAll();
         for (RecyclingZoneModel recyclingZone : recyclingZones) {
-            if(!Objects.equals(recyclingZone.getSupervisor(), null) &&
+            if (!Objects.equals(recyclingZone.getSupervisor(), null) &&
                     Objects.equals(recyclingZone.getSupervisor().getId(), idSupervisor)) {
                 return Optional.of(recyclingZone);
             }

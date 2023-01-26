@@ -46,9 +46,9 @@ class LocationControllerUnitTest {
         this.locationList.add(new LocationModel("Capital", "Centro", "Montevideo",
                 123, new Point(-314216005, -641907307)));
         this.locationList.add(new LocationModel("Capital", "Alberdi", "Arturo Orgaz",
-                510, new Point(-314033216,-642089571)));
+                510, new Point(-314033216, -642089571)));
         this.locationList.add(new LocationModel("Capital", "Guemes", "Belgrano",
-                783, new Point(-314239776,-641920699)));
+                783, new Point(-314239776, -641920699)));
     }
 
     @Test
@@ -80,7 +80,7 @@ class LocationControllerUnitTest {
         mockMvc.perform(post("/location")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(locationModel)))
-                        .andExpect(status().isOk());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -102,7 +102,7 @@ class LocationControllerUnitTest {
         mockMvc.perform(put("/location/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(locationModel)))
-                    .andExpect(status().isOk());
+                .andExpect(status().isOk());
     }
 
 }

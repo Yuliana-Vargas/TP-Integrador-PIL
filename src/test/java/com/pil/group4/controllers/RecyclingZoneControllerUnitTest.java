@@ -1,7 +1,8 @@
 package com.pil.group4.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pil.group4.models.*;
+import com.pil.group4.models.RecyclingZoneModel;
+import com.pil.group4.models.SupervisorModel;
 import com.pil.group4.services.RecyclingZoneService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,9 +45,9 @@ public class RecyclingZoneControllerUnitTest {
     @BeforeEach
     void setUp() {
         this.recyclingZoneList = new ArrayList<>();
-        this.recyclingZoneList.add(new RecyclingZoneModel(1L, "RecZone1", FULL, INACCESSIBLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false));
-        this.recyclingZoneList.add(new RecyclingZoneModel(2L, "RecZone2", EMPTY, AVAILABLE, BATTERY_DISPOSAL,false));
-        this.recyclingZoneList.add(new RecyclingZoneModel(3L, "RecZone3", EXCEEDED, DAMAGED, GLASS_DISPOSAL,true));
+        this.recyclingZoneList.add(new RecyclingZoneModel(1L, "RecZone1", FULL, INACCESSIBLE, NON_RECYCLABLE_GARBAGE_DISPOSAL, false));
+        this.recyclingZoneList.add(new RecyclingZoneModel(2L, "RecZone2", EMPTY, AVAILABLE, BATTERY_DISPOSAL, false));
+        this.recyclingZoneList.add(new RecyclingZoneModel(3L, "RecZone3", EXCEEDED, DAMAGED, GLASS_DISPOSAL, true));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class RecyclingZoneControllerUnitTest {
     @Test
     void getRecyclingZoneByIdTest() throws Exception {
         final Long recZone1 = 1L;
-        final RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(1L, "RecZone1",FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
+        final RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(1L, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL, false);
 
         when(recyclingZoneService.getRecyclingZoneById(recZone1)).thenReturn(Optional.of(recyclingZoneModel));
 
@@ -76,7 +77,7 @@ public class RecyclingZoneControllerUnitTest {
     void saveRecyclingZoneTest() throws Exception {
         when(recyclingZoneService.saveRecyclingZone(any(RecyclingZoneModel.class))).then((invocation) -> invocation.getArgument(0));
 
-        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(null, "RecZone1",FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(null, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL, false);
 
         mockMvc.perform(post("/recycling-zone")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -84,10 +85,11 @@ public class RecyclingZoneControllerUnitTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(recyclingZoneModel.getName())));
     }
+
     @Test
     void updateRecyclingZoneTest() throws Exception {
         Long recZone1 = 1L;
-        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(recZone1, "RecZone1",FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(recZone1, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL, false);
         when(recyclingZoneService.getRecyclingZoneById(recZone1)).thenReturn(Optional.of(recyclingZoneModel));
         when(recyclingZoneService.updateRecyclingZoneById(any(RecyclingZoneModel.class), any(Long.class))).then((invocation) -> invocation.getArgument(0));
 
@@ -101,7 +103,7 @@ public class RecyclingZoneControllerUnitTest {
     @Test
     void deleteRecyclingZoneByIdTest() throws Exception {
         Long recZone1 = 1L;
-        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(recZone1, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false);
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(recZone1, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL, false);
         when(recyclingZoneService.getRecyclingZoneById(recyclingZoneModel.getId())).thenReturn(Optional.of(recyclingZoneModel));
 
         mockMvc.perform(delete("/recycling-zone/{id}", recyclingZoneModel.getId())
@@ -110,10 +112,10 @@ public class RecyclingZoneControllerUnitTest {
     }
 
     @Test
-    void getRecyclingZoneBySupervisorTest() throws Exception{
+    void getRecyclingZoneBySupervisorTest() throws Exception {
         Long recZone1 = 1L;
-        SupervisorModel supervisorModel = new SupervisorModel(1L,"Juan");
-        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(1L, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL,false, supervisorModel);
+        SupervisorModel supervisorModel = new SupervisorModel(1L, "Juan");
+        RecyclingZoneModel recyclingZoneModel = new RecyclingZoneModel(1L, "RecZone1", FULL, AVAILABLE, NON_RECYCLABLE_GARBAGE_DISPOSAL, false, supervisorModel);
         when(recyclingZoneService.getRecyclingZoneBySupervisor(recZone1)).thenReturn(Optional.of(recyclingZoneModel));
 
         mockMvc.perform(get("/recycling-zone/supervisor/{id}", recZone1))

@@ -21,9 +21,6 @@ public class ComplaintModel {
 
     @Column
     private TypeOfComplaint typeOfComplaint;
-
-    public ComplaintModel() {
-    }
     
     @Column
     private String description;

@@ -1,7 +1,6 @@
 package com.pil.group4.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class RecyclingZoneModel {
     @Column
     private String name;
 
-    public RecyclingZoneModel(){
+    public RecyclingZoneModel() {
 
     }
 
@@ -60,7 +59,7 @@ public class RecyclingZoneModel {
     @OneToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LocationModel location;
 
-    @OneToMany(cascade  = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_com_id", referencedColumnName = "rec_id")
     private List<ComplaintModel> complaints;
 

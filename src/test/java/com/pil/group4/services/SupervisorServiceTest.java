@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -41,7 +40,7 @@ class SupervisorServiceTest {
 
     @Test
     void saveSupervisorTest() {
-        SupervisorModel supervisorModel = new SupervisorModel(1L,"Supervisor1");
+        SupervisorModel supervisorModel = new SupervisorModel(1L, "Supervisor1");
         when(supervisorRepository.save(supervisorModel)).then(invocation -> invocation.getArgument(0));
 
         SupervisorModel savedSupervisor = supervisorService.saveSupervisor(supervisorModel);
@@ -52,14 +51,14 @@ class SupervisorServiceTest {
     @Test
     void getSupervisorByIdTest() {
         Long supervisorId = 1L;
-        SupervisorModel supervisorModel = new SupervisorModel(1L,"Supervisor1");
+        SupervisorModel supervisorModel = new SupervisorModel(1L, "Supervisor1");
 
         when(supervisorRepository.findById(supervisorId)).thenReturn(Optional.of(supervisorModel));
 
         Optional<SupervisorModel> supervisorExpected = supervisorService.getSupervisorById(supervisorId);
         assertThat(supervisorExpected).isNotNull();
         assertTrue(supervisorExpected.isPresent());
-        assertEquals("Supervisor1",supervisorExpected.get().getSupervisorName());
+        assertEquals("Supervisor1", supervisorExpected.get().getSupervisorName());
         verify(supervisorRepository).findById(any(Long.class));
     }
 
@@ -67,7 +66,7 @@ class SupervisorServiceTest {
     void updateSupervisorByIdTest() {
         SupervisorModel supervisorModel = new SupervisorModel(1L, "Supervisor1");
         when(supervisorRepository.save(supervisorModel)).thenReturn(supervisorModel);
-        SupervisorModel supervisorExpected = supervisorService.updateSupervisorById(supervisorModel,supervisorModel.getId());
+        SupervisorModel supervisorExpected = supervisorService.updateSupervisorById(supervisorModel, supervisorModel.getId());
         assertThat(supervisorExpected).isNotNull();
         verify(supervisorRepository).save(any(SupervisorModel.class));
     }

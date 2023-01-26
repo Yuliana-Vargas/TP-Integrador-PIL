@@ -30,7 +30,7 @@ public interface IRecyclingZoneService {
     Optional<RecyclingZoneModel> getRecyclingZoneBySupervisor(Long idSupervisor);
 
     List<RecyclingZoneModel> getRecyclingZonesByDepartment(String department);
-    
+
     Optional<RecyclingZoneModel> needsReclassification(Long id, Long SupervisorId, RecyclingZoneModel recyclingZone);
 
     List<RecyclingZoneModel> findRecyclingZoneByClassificationType(ClassificationType classificationType);
