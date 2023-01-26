@@ -18,6 +18,7 @@ Bring all the supervisors
 
 ### Response
 
+```json
 [
 {
 "id": 1,
@@ -36,7 +37,7 @@ Bring all the supervisors
 "supervisorName": "camila"
 }
 ]
-
+```
 ## Create a new Supervisor
 
 ### Request
@@ -45,16 +46,20 @@ Bring all the supervisors
 
 ### Body
 
+```json
 {
-"supervisorName": "esteban"
+  "supervisorName": "esteban"
 }
+```
 
 ### Response
 
+```json
 {
-"id": 5,
-"supervisorName": "esteban"
-}":1,"name":"Foo","status":"new"}
+  "id": 5,
+  "supervisorName": "esteban"
+}
+```
 
 ### Get a Supervisor
 
@@ -65,10 +70,12 @@ Bring all the supervisors
 
 ### Response
 
+```json
 {
 "id": 1,
 "supervisorName": "maria"
 }
+```
 
 ### Update a Supervisor
 
@@ -79,16 +86,21 @@ Bring all the supervisors
 
 ### Body
 
+```json
 {
-"supervisorName": "laura"
+  "supervisorName": "laura"
 }
+```
+
 
 ### Response
 
+```json
 {
-"id": 1,
-"supervisorName": "laura"
+  "id": 1,
+  "supervisorName": "laura"
 }
+```
 
 ### Delete a Supervisor
 
@@ -99,4 +111,6 @@ Bring all the supervisors
 
 ### Response
 
+```json
 "The Supervisor with the id: 1, was removed"
+```
