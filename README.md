@@ -156,7 +156,7 @@ Bring all the recycling zones
 }
 ```
 
-## ***Get complaints of a recycling zone***
+## ***Get Complaints of a Recycling Zone***
 
 ### Request
 
@@ -175,7 +175,7 @@ Bring all the recycling zones
 ]
 ```
 
-## ***Get recycling zone by supervisor***
+## ***Get Recycling Zone by Supervisor***
 
 ### Request
 
@@ -217,7 +217,7 @@ Bring all the recycling zones
 }
 ```
 
-## ***Get recycling zone by department***
+## ***Get Recycling Zone by Department***
 
 ### Request
 
@@ -261,7 +261,7 @@ Bring all the recycling zones
 ]
 ```
 
-## ***Add a new complaint in a Recycling Zone***
+## ***Add a new Complaint in a Recycling Zone***
 
 ### Request
 
@@ -283,7 +283,7 @@ Bring all the recycling zones
 "Complaint added to recycling zone with id 2"
 ```
 
-## ***Get recycling zones by classification Type***
+## ***Get Recycling Zones by Classification Type***
 
 ### Request
 
@@ -331,7 +331,7 @@ Bring all the recycling zones
 ]
 ```
 
-## ***Get recycling zones by Occupation Capacity***
+## ***Get Recycling Zones by Occupation Capacity***
 
 ### Request
 
@@ -379,7 +379,7 @@ Bring all the recycling zones
 ]
 ```
 
-## ***Get recycling zones by state Of The Zone***
+## ***Get Recycling Zones by State Of The Zone***
 
 ### Request
 
