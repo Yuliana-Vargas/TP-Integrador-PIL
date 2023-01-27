@@ -427,6 +427,47 @@ Bring all the recycling zones
 ]
 ```
 
+## ***Get collection route given a start point***
+
+For example we have the following zones:
+* Zone id: 3 with coordinates at Point(17.3, 5.5)
+* Zone id: 7 with coordinates at Point(10.5, 24.9)
+* Zone id: 11 with coordinates at Point(43.5, 10.7)
+
+But we have to round the coordinates. So then we have:
+
+* Zone id: 3 with coordinates at Point(17, 6)
+* Zone id: 7 with coordinates at Point(11, 25)
+* Zone id: 11 with coordinates at Point(44, 11)
+
+We want to know the best route to pass through all the zones starting from a point
+In this case the point is going to be (44.3, 24.2). Rounded (44, 24)
+
+Here is an image in order to make it easier to imagine:
+![alt text](https://i.imgur.com/Q01PSRo.jpg)
+
+### Request
+
+`GET /recycling-zone/recollection-route/x{x}/y{y}`
+`GET /recycling-zone/recollection-route/x44/y24`
+
+### Body
+
+```json
+[3, 7, 11]
+```
+
+### Response
+
+```json
+"Starting from point: (44.0, 24.0) the best route is:
+1° Zone name: Zone 11, coordinates: (44.0, 11.0).
+2° Zone name: Zone 3, coordinates: (17.0, 6.0).
+3° Zone name: Zone 7, coordinates: (11.0, 25.0)."
+```
+
+To check that the algorithm works well. You can calculate by yourself each distance and see
+
 ## ***Update a Recycling Zone***
 
 ### Request
