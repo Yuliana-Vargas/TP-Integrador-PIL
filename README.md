@@ -588,6 +588,123 @@ Bring all the complaints
 
 ---
 
+## CRUD of Idea
+
+    'http://localhost:8080/idea'
+
+## ***Get list of Ideas***
+
+### Request
+
+`GET /idea`
+
+Bring all the ideas
+
+### Response
+
+```json
+[
+    {
+        "id": 1,
+        "ideaName": "botle",
+        "description": "ffff"
+    },
+    {
+        "id": 3,
+        "ideaName": "botle",
+        "description": "jbj"
+    },
+    {
+        "id": 4,
+        "ideaName": "skddk",
+        "description": "jjkb"
+    }
+]
+```
+## ***Create a new Idea***
+
+### Request
+
+`POST /idea`
+
+### Body
+
+```json
+{
+    "ideaName":"glass",
+    "description":"gg"
+}
+```
+
+### Response
+
+```json
+{
+    "id": 5,
+    "ideaName": "glass",
+    "description": "gg"
+}
+```
+
+## ***Get a Idea***
+
+### Request
+
+`GET /idea/{id}`
+`GET /idea/5`
+
+### Response
+
+```json
+{
+    "id": 5,
+    "ideaName": "glass",
+    "description": "gg"
+}
+```
+
+## ***Update a Idea***
+
+### Request
+
+`PUT /idea/{id}`
+`PUT /idea/3`
+
+### Body
+
+```json
+{
+    "ideaName": "plastic",
+    "description": "pp"
+ }
+```
+
+
+### Response
+
+```json
+{
+    "id": 3,
+    "ideaName": "plastic",
+    "description": "pp"
+}
+```
+
+## ***Delete a Idea***
+
+### Request
+
+`DELETE /idea/{id}`
+`DELETE /idea/5`
+
+### Response
+
+```json
+"The Idea with id: 5, was removed"
+```
+
+---
+
 ## Authors
 
 [<img src="https://avatars.githubusercontent.com/u/81372862?v=4" width=115><br><sub>Fernando José Noceti</sub>](https://github.com/FerNoceti) |  [<img src="https://avatars.githubusercontent.com/u/101755881?v=4" width=115><br><sub>Milena Muñoz</sub>](https://github.com/milemunoz10) |  [<img src="https://avatars.githubusercontent.com/u/101777026?v=4" width=115><br><sub>Martin Maciel</sub>](https://github.com/MartinMaciel110916) |  [<img src="https://avatars.githubusercontent.com/u/72422271?v=4" width=115><br><sub>Yuliana Vargas</sub>](https://github.com/Yuliana-Vargas) |
