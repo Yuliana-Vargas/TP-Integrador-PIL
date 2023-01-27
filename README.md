@@ -440,7 +440,7 @@ But we have to round the coordinates. So then we have:
 * Zone id: 7 with coordinates at Point(11, 25)
 * Zone id: 11 with coordinates at Point(44, 11)
 
-We want to know the best route to pass through all the zones starting from a point
+We want to know the best route to pass through all the zones starting from a point. 
 In this case the point is going to be (44.3, 24.2). Rounded (44, 24)
 
 Here is an image in order to make it easier to imagine:
