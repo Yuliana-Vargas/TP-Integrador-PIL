@@ -455,3 +455,8 @@ Bring all the locations
 ```
 
 ---
+
+## Authors
+
+[<img src="https://avatars.githubusercontent.com/u/81372862?v=4" width=115><br><sub>Fernando José Noceti</sub>](https://github.com/FerNoceti) |  [<img src="https://avatars.githubusercontent.com/u/101755881?v=4" width=115><br><sub>Milena Muñoz</sub>](https://github.com/milemunoz10) |  [<img src="https://avatars.githubusercontent.com/u/101777026?v=4" width=115><br><sub>Martin Maciel</sub>](https://github.com/MartinMaciel110916) |  [<img src="https://avatars.githubusercontent.com/u/72422271?v=4" width=115><br><sub>Yuliana Vargas</sub>](https://github.com/Yuliana-Vargas) |
+| :---: | :---: | :---: | :---: |
