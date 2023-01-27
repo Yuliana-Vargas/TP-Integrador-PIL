@@ -202,8 +202,18 @@ public class RecyclingZoneService implements IRecyclingZoneService {
 
     @Override
     public String deleteComplaint(Long id, Long idComplaint) {
-        return null;
-    }
+        Optional<RecyclingZoneModel> optionalUpdate = recyclingZoneRepository.findById(id);
+        Optional<ComplaintModel> optionalComplaint = complaintRepository.findById(idComplaint);
+        if (optionalUpdate.isEmpty() || optionalComplaint.isEmpty()) {
+            return "Complaint with id " + idComplaint + " or recycling zone with id " + id + " not found";
+        }
+        RecyclingZoneModel update = optionalUpdate.get();
+        if ((update.getComplaints() != null) && Objects.equals(update.getComplaints(), idComplaint)) {
+            update.setComplaints(null);
+            recyclingZoneRepository.save(update);
+            return "Complaint with id " + idComplaint + " deleted from recycling zone with id " + id;
+        }
+        return "Complaint with id " + idComplaint + " not found in recycling zone with id " + id;}
 
     @Override
     public String cleanComplaints(Long id) {
