@@ -135,6 +135,26 @@ Bring all the recycling zones
 }
 ```
 
+## ***Get a Recycling Zone***
+
+### Request
+
+`GET /recycling-zone/{id}`
+`GET /recycling-zone/1`
+
+### Response
+
+```json
+{
+    "id": 1,
+    "name": "Zone1",
+    "occupationCapacity": "EMPTY",
+    "stateOfTheZone": "AVAILABLE",
+    "classificationType": "BATTERY_DISPOSAL",
+    "needsReclassification": true 
+}
+```
+
 ## ***Update a Recycling Zone***
 
 ### Request
