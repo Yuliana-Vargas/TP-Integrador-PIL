@@ -4,11 +4,207 @@
 
 The REST API to  app is described below.
 
-### CRUD of Supervisor
+---
+
+## CRUD of Recycling Zone
+
+    'http://localhost:8080/recycling-zone'
+    
+## ***Get list of Recycling zones***
+
+### Request
+
+`GET /recycling-zone`
+
+Bring all the recycling zones
+
+### Response
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Zone1",
+        "occupationCapacity": "EMPTY",
+        "stateOfTheZone": "AVAILABLE",
+        "classificationType": "BATTERY_DISPOSAL",
+        "needsReclassification": true 
+    },
+    {
+        "id": 2,
+        "name": "Zone2",
+        "occupationCapacity": "EXCEEDED",
+        "stateOfTheZone": "DAMAGED",
+        "classificationType": "PAPER_DISPOSAL",
+        "needsReclassification": true,
+        "supervisor": {
+            "id": 3,
+            "supervisorName": "Romina"
+        },
+        "location": {
+            "id": 1,
+            "department": "Capital",
+            "neighborhood": "Alberdi",
+            "address": "Sta Fe",
+            "number": 159,
+            "coordinates": {
+                "x": -31.0,
+                "y": -64.0
+            }
+        },
+        "complaints": [
+            {
+                "id": 3,
+                "typeOfComplaint": "FOR_MISUSE",
+                "description": "bad recylcing"
+            }
+        ]
+    }
+```
+
+## ***Create a new Recycling Zone***
+
+### Request
+
+`POST /recycling-zone`
+
+### Body
+
+```json
+{
+    "name": "Zone3",
+    "occupationCapacity": 3,
+    "stateOfTheZone": 0,
+    "classificationType": 1,
+    "needsReclassification": false,
+    "typeOfComplaint": 3,
+    "supervisor": {
+        "supervisorName": "Paula"
+    },
+    "location": {
+        "department": "a",
+        "neighborhood": "b",
+        "address": "c",
+        "number": 10,
+        "coordinates": {
+            "x": 13424.1231,
+            "y": -231.22
+        }
+    },
+    "complaints": [
+            {
+                "typeOfComplaint": "ANOTHER_REASON",
+                "description": "usually excceded"
+            }
+        ]
+}
+```
+
+### Response
+
+```json
+{
+    "id": 3,
+    "name": "Zone3",
+    "occupationCapacity": "EXCEEDED",
+    "stateOfTheZone": "AVAILABLE",
+    "classificationType": "NON_RECYCLABLE_GARBAGE_DISPOSAL",
+    "needsReclassification": false,
+    "supervisor": {
+        "id": 8,
+        "supervisorName": "Paula"
+    },
+    "location": {
+        "id": 8,
+        "department": "a",
+        "neighborhood": "b",
+        "address": "c",
+        "number": 10,
+        "coordinates": {
+            "x": 13424.0,
+            "y": -231.0
+        }
+    },
+    "complaints": [
+        {
+            "id": 9,
+            "typeOfComplaint": "ANOTHER_REASON",
+            "description": "usually excceded"
+        }
+    ]
+}
+```
+
+## ***Update a Recycling Zone***
+
+### Request
+
+`PUT /recycling-zone/{id}`
+`PUT /recycling-zone/1`
+
+### Body
+
+```json
+{
+    "name": "zona3 edited"
+}
+```
+
+### Response
+
+```json
+{
+    "id": 3,
+    "name": "zona3 edited",
+    "occupationCapacity": "EXCEEDED",
+    "stateOfTheZone": "AVAILABLE",
+    "classificationType": "NON_RECYCLABLE_GARBAGE_DISPOSAL",
+    "needsReclassification": false,
+    "supervisor": {
+        "id": 8,
+        "supervisorName": "Paula"
+    },
+    "location": {
+        "id": 8,
+        "department": "a",
+        "neighborhood": "b",
+        "address": "c",
+        "number": 10,
+        "coordinates": {
+            "x": 13424.0,
+            "y": -231.0
+        }
+    },
+    "complaints": [
+        {
+            "id": 9,
+            "typeOfComplaint": "ANOTHER_REASON",
+            "description": "usually excceded"
+        }
+    ]
+}
+```
+
+## ***Delete a Recycling Zone***
+
+### Request
+
+`DELETE /recycling-zone/{id}`
+`DELETE /recycling-zone/1`
+
+### Response
+
+```json
+"The Recycling Zone with id: 1, was removed"
+```
+
+---
+
+## CRUD of Supervisor
 
     'http://localhost:8080/supervisor'
 
-## Get list of Supervisors
+## ***Get list of Supervisors***
 
 ### Request
 
@@ -20,25 +216,25 @@ Bring all the supervisors
 
 ```json
 [
-{
-"id": 1,
-"supervisorName": "maria"
-},
-{
-"id": 2,
-"supervisorName": "juan"
-},
-{
-"id": 3,
-"supervisorName": "diego"
-},
-{
-"id": 4,
-"supervisorName": "camila"
-}
+    {
+        "id": 1,
+        "supervisorName": "maria"
+    },
+    {
+        "id": 2,
+        "supervisorName": "juan"
+    },
+    {
+        "id": 3,
+        "supervisorName": "diego"
+    },
+    {
+        "id": 4,
+        "supervisorName": "camila"
+    }
 ]
 ```
-## Create a new Supervisor
+## ***Create a new Supervisor***
 
 ### Request
 
@@ -61,7 +257,7 @@ Bring all the supervisors
 }
 ```
 
-### Get a Supervisor
+## ***Get a Supervisor***
 
 ### Request
 
@@ -77,7 +273,7 @@ Bring all the supervisors
 }
 ```
 
-### Update a Supervisor
+## ***Update a Supervisor***
 
 ### Request
 
@@ -102,7 +298,7 @@ Bring all the supervisors
 }
 ```
 
-### Delete a Supervisor
+## ***Delete a Supervisor***
 
 ### Request
 
@@ -117,9 +313,11 @@ Bring all the supervisors
 
 ---
 
-### CRUD of Location
+## CRUD of Location
 
     'http://localhost:8080/location'
+
+## ***Get list of Locations***
     
 ### Request
 
@@ -145,7 +343,7 @@ Bring all the locations
 ]
 ```
 
-## Create a new Location
+## ***Create a new Location***
 
 ### Request
 
@@ -182,7 +380,7 @@ Bring all the locations
 }
 ```
 
-### Get a Location
+## ***Get a Location***
 
 ### Request
 
@@ -205,7 +403,7 @@ Bring all the locations
 }
 ```
 
-### Update a Location
+## ***Update a Location***
 
 ### Request
 
@@ -243,7 +441,7 @@ Bring all the locations
 }
 ```
 
-### Delete a Location
+## ***Delete a Location***
 
 ### Request
 
@@ -252,4 +450,8 @@ Bring all the locations
 
 ### Response
 
+```json
 "The Location with the id: 1, was removed"    
+```
+
+---
