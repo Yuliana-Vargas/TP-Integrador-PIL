@@ -607,17 +607,17 @@ Bring all the ideas
     {
         "id": 1,
         "ideaName": "botle",
-        "description": "ffff"
+        "description": "collect bottles"
     },
     {
         "id": 3,
         "ideaName": "botle",
-        "description": "jbj"
+        "description": "decorate with plastic bottles"
     },
     {
         "id": 4,
-        "ideaName": "skddk",
-        "description": "jjkb"
+        "ideaName": "paper",
+        "description": "decorations with paper"
     }
 ]
 ```
@@ -632,7 +632,7 @@ Bring all the ideas
 ```json
 {
     "ideaName":"glass",
-    "description":"gg"
+    "description":"make glass cups"
 }
 ```
 
@@ -642,7 +642,7 @@ Bring all the ideas
 {
     "id": 5,
     "ideaName": "glass",
-    "description": "gg"
+    "description": "make glass cups"
 }
 ```
 
@@ -659,7 +659,7 @@ Bring all the ideas
 {
     "id": 5,
     "ideaName": "glass",
-    "description": "gg"
+    "description": "make glass cups"
 }
 ```
 
@@ -675,7 +675,7 @@ Bring all the ideas
 ```json
 {
     "ideaName": "plastic",
-    "description": "pp"
+    "description": "decorate with plastic bottles"
  }
 ```
 
@@ -686,7 +686,7 @@ Bring all the ideas
 {
     "id": 3,
     "ideaName": "plastic",
-    "description": "pp"
+    "description": "decorate with plastic bottles"
 }
 ```
 
