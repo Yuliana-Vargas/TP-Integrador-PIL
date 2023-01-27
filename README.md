@@ -460,10 +460,7 @@ Here is an image in order to make it easier to imagine:
 ### Response
 
 ```json
-"Starting from point: (44.0, 24.0) the best route is:
-1° Zone name: Zone 11, coordinates: (44.0, 11.0).
-2° Zone name: Zone 3, coordinates: (17.0, 6.0).
-3° Zone name: Zone 7, coordinates: (11.0, 25.0)."
+"Starting from point: (44.0, 24.0) the best route is:\n1° Zone name: Zone 11, coordinates: (44.0, 11.0).\n2° Zone name: Zone 3, coordinates: (17.0, 6.0).\n3° Zone name: Zone 7, coordinates: (11.0, 25.0)."
 ```
 
 To check that the algorithm works well. You can calculate by yourself each distance and see
