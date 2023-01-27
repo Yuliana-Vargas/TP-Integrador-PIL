@@ -54,9 +54,9 @@ Bring all the recycling zones
         },
         "complaints": [
             {
-                "id": 3,
+                "id": 1,
                 "typeOfComplaint": "FOR_MISUSE",
-                "description": "bad recylcing"
+                "description": "improper recycling"
             }
         ]
     }
@@ -452,6 +452,118 @@ Bring all the locations
 
 ```json
 "The Location with the id: 1, was removed"    
+```
+
+---
+
+## CRUD of Complaints
+
+    'http://localhost:8080/complaint'
+
+## ***Get list of Complaints***
+
+### Request
+
+`GET /complaint`
+
+Bring all the complaints
+
+### Response
+
+```json
+[
+    {
+        "id": 1,
+        "typeOfComplaint": "FOR_MISUSE",
+        "description": "improper recycling"
+    },
+    {
+        "id": 2,
+        "typeOfComplaint": "FOR_VANDALISM",
+        "description": "broken"
+    }
+]
+```
+## ***Create a new Complaint***
+
+### Request
+
+`POST /complaint`
+
+### Body
+
+```json
+{
+    "typeOfComplaint": "ANOTHER_REASON",
+    "description": "always full"
+}
+```
+
+### Response
+
+```json
+{
+    "id": 3,
+    "typeOfComplaint": "ANOTHER_REASON",
+    "description": "always full"
+}
+```
+
+## ***Get a Complaint***
+
+### Request
+
+`GET /complaint/{id}`
+`GET /complaint/1`
+
+### Response
+
+```json
+{
+    "id": 1,
+    "typeOfComplaint": "FOR_MISUSE",
+    "description": "improper recycling"
+}
+```
+
+## ***Update a Complaint***
+
+### Request
+
+`PUT /complaint/{id}`
+`PUT /complaint/2`
+
+### Body
+
+```json
+{
+    "typeOfComplaint": "FOR_VANDALISM",
+    "description": "broken container"
+}
+```
+
+
+### Response
+
+```json
+{
+    "id": 2,
+    "typeOfComplaint": "FOR_VANDALISM",
+    "description": "broken container"
+}
+```
+
+## ***Delete a Complaint***
+
+### Request
+
+`DELETE /complaint/{id}`
+`DELETE /complaint/1`
+
+### Response
+
+```json
+"The Complaint with id: 1, was removed"
 ```
 
 ---
