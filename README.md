@@ -60,6 +60,7 @@ Bring all the recycling zones
             }
         ]
     }
+]
 ```
 
 ## ***Create a new Recycling Zone***
@@ -153,6 +154,277 @@ Bring all the recycling zones
     "classificationType": "BATTERY_DISPOSAL",
     "needsReclassification": true 
 }
+```
+
+## ***Get complaints of a recycling zone***
+
+### Request
+
+`GET /recycling-zone/{id}/complaint`
+`GET /recycling-zone/2/complaint`
+
+### Response
+
+```json
+[
+    {
+        "id": 1,
+        "typeOfComplaint": "FOR_MISUSE",
+        "description": "improper recycling"
+    }
+]
+```
+
+## ***Get recycling zone by supervisor***
+
+### Request
+
+`GET /recycling-zone/supervisor/{id}`
+`GET /recycling-zone/supervisor/3`
+
+### Response
+
+```json
+{
+    "id": 2,
+    "name": "Zone2",
+    "occupationCapacity": "EXCEEDED",
+    "stateOfTheZone": "DAMAGED",
+    "classificationType": "PAPER_DISPOSAL",
+    "needsReclassification": true,
+    "supervisor": {
+        "id": 3,
+        "supervisorName": "Romina"
+    },
+    "location": {
+        "id": 1,
+        "department": "Capital",
+        "neighborhood": "Alberdi",
+        "address": "Sta Fe",
+        "number": 159,
+        "coordinates": {
+            "x": -31.0,
+            "y": -64.0
+        }
+    },
+    "complaints": [
+        {
+            "id": 1,
+            "typeOfComplaint": "FOR_MISUSE",
+            "description": "improper recycling"
+        }
+    ]
+}
+```
+
+## ***Get recycling zone by department***
+
+### Request
+
+`GET /recycling-zone/location/department/{department}`
+`GET /recycling-zone/location/department/Capital`
+
+### Response
+
+```json
+[
+     {
+        "id": 2,
+        "name": "Zone2",
+        "occupationCapacity": "EXCEEDED",
+        "stateOfTheZone": "DAMAGED",
+        "classificationType": "PAPER_DISPOSAL",
+        "needsReclassification": true,
+        "supervisor": {
+            "id": 3,
+            "supervisorName": "Romina"
+        },
+        "location": {
+            "id": 1,
+            "department": "Capital",
+            "neighborhood": "Alberdi",
+            "address": "Sta Fe",
+            "number": 159,
+            "coordinates": {
+                "x": -31.0,
+                "y": -64.0
+            }
+        },
+        "complaints": [
+            {
+                "id": 1,
+                "typeOfComplaint": "FOR_MISUSE",
+                "description": "improper recycling"
+            }
+        ]
+    }
+]
+```
+
+## ***Add a new complaint in a Recycling Zone***
+
+### Request
+
+`PUT /recycling-zone/{id}/complaint`
+`PUT /recycling-zone/2/complaint`
+
+### Body
+
+```json
+{
+    "typeOfComplaint": "FOR_VANDALISM",
+    "description": "container with graffiti"
+}
+```
+
+### Response
+
+```json
+"Complaint added to recycling zone with id 2"
+```
+
+## ***Get recycling zones by classification Type***
+
+### Request
+
+`GET /recycling-zone/findByClassificationType?classificationType={classificationType}`
+`GET /recycling-zone/findByClassificationType?classificationType=PAPER_DISPOSAL`
+
+### Response
+
+```json
+[
+    {
+        "id": 2,
+        "name": "Zone2",
+        "occupationCapacity": "EXCEEDED",
+        "stateOfTheZone": "DAMAGED",
+        "classificationType": "PAPER_DISPOSAL",
+        "needsReclassification": true,
+        "supervisor": {
+            "id": 3,
+            "supervisorName": "Romina"
+        },
+        "location": {
+            "id": 1,
+            "department": "Capital",
+            "neighborhood": "Alberdi",
+            "address": "Sta Fe",
+            "number": 159,
+            "coordinates": {
+                "x": -31.0,
+                "y": -64.0
+            }
+        },
+        "complaints": [
+            {
+                "id": 1,
+                "typeOfComplaint": "FOR_MISUSE",
+                "description": "improper recycling"
+            },
+            {
+                "typeOfComplaint": "FOR_VANDALISM",
+                "description": "container with graffiti"
+            }
+        ]
+    }
+]
+```
+
+## ***Get recycling zones by Occupation Capacity***
+
+### Request
+
+`GET /recycling-zone/findByOccupationCapacity?occupationCapacity={occupationCapacity}`
+`GET /recycling-zone/findByOccupationCapacity?occupationCapacity=EXCEEDED`
+
+### Response
+
+```json
+[
+    {
+        "id": 2,
+        "name": "Zone2",
+        "occupationCapacity": "EXCEEDED",
+        "stateOfTheZone": "DAMAGED",
+        "classificationType": "PAPER_DISPOSAL",
+        "needsReclassification": true,
+        "supervisor": {
+            "id": 3,
+            "supervisorName": "Romina"
+        },
+        "location": {
+            "id": 1,
+            "department": "Capital",
+            "neighborhood": "Alberdi",
+            "address": "Sta Fe",
+            "number": 159,
+            "coordinates": {
+                "x": -31.0,
+                "y": -64.0
+            }
+        },
+        "complaints": [
+            {
+                "id": 1,
+                "typeOfComplaint": "FOR_MISUSE",
+                "description": "improper recycling"
+            },
+            {
+                "typeOfComplaint": "FOR_VANDALISM",
+                "description": "container with graffiti"
+            }
+        ]
+    }
+]
+```
+
+## ***Get recycling zones by state Of The Zone***
+
+### Request
+
+`GET /recycling-zone/findByStateOfTheZone?stateOfTheZone={stateOfTheZone}`
+`GET /recycling-zone/findByStateOfTheZone?stateOfTheZone=DAMAGED`
+
+### Response
+
+```json
+[
+    {
+        "id": 2,
+        "name": "Zone2",
+        "occupationCapacity": "EXCEEDED",
+        "stateOfTheZone": "DAMAGED",
+        "classificationType": "PAPER_DISPOSAL",
+        "needsReclassification": true,
+        "supervisor": {
+            "id": 3,
+            "supervisorName": "Romina"
+        },
+        "location": {
+            "id": 1,
+            "department": "Capital",
+            "neighborhood": "Alberdi",
+            "address": "Sta Fe",
+            "number": 159,
+            "coordinates": {
+                "x": -31.0,
+                "y": -64.0
+            }
+        },
+        "complaints": [
+            {
+                "id": 1,
+                "typeOfComplaint": "FOR_MISUSE",
+                "description": "improper recycling"
+            },
+            {
+                "typeOfComplaint": "FOR_VANDALISM",
+                "description": "container with graffiti"
+            }
+        ]
+    }
+]
 ```
 
 ## ***Update a Recycling Zone***
